@@ -1,0 +1,7 @@
+# Pas de listing des dossiers
+Options -Indexes
+
+# Fichiers internes jamais servis par Apache
+<FilesMatch "^(composer\.(json|lock)|.*\.md|\.gitignore)$">
+    Require all denied
+</FilesMatch>

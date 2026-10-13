@@ -1,0 +1,52 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "Clavier Mécanique Logitech G Pro X",
+            "price": 129.99,
+            "currency": "€",
+            "description": "Clavier compétitif compact avec switches tactiles et rétroéclairage RGB.",
+            "image": "assets/products/clavier.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Écran 27\" LG UltraFine 4K",
+            "price": 449.99,
+            "currency": "€",
+            "description": "Dalle IPS UHD, couverture sRGB 98 %, idéal pour les créateurs.",
+            "image": "assets/products/ecran.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Webcam 1080p Logitech C920",
+            "price": 69.99,
+            "currency": "€",
+            "description": "Full HD à 30 fps, autofocus et micros stéréo intégrés.",
+            "image": "assets/products/webcam.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Souris Sans Fil Razer DeathAdder V3",
+            "price": 89.99,
+            "currency": "€",
+            "description": "Capteur optique 30 000 DPI, 58 g, conception ergonomique.",
+            "image": "assets/products/souris.jpg"
+        },
+        {
+            "id": 5,
+            "name": "Casque Gaming SteelSeries Arctis 7",
+            "price": 149.99,
+            "currency": "€",
+            "description": "Son surround 7.1 DTS, micro ClearCast antibruit, 24 h d'autonomie.",
+            "image": "assets/products/casque.jpg"
+        },
+        {
+            "id": 6,
+            "name": "Hub USB-C Anker 7-en-1",
+            "price": 54.99,
+            "currency": "€",
+            "description": "HDMI 4K, 2x USB 3.0, charge pass-through, lecteur SD.",
+            "image": "assets/products/hub.jpg"
+        }
+    ]
+}

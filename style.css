@@ -1,0 +1,1141 @@
+/* ============================================================
+   InfoLeader — style.css (site public + administration)
+   Identité : bleu tech #0056b3 · gris foncé #2d2d2d · blanc
+   #ffffff · accent vert #4caf50. Police sans-serif uniquement,
+   aucune ressource externe (fonctionne hors ligne).
+   ============================================================ */
+
+/* ============================================
+   1. Tokens de thème
+   ============================================ */
+:root {
+    /* Couleurs de marque */
+    --blue: #0056b3;
+    --blue-dark: #003f86;
+    --blue-tint: #e8f0fa;
+    --dark: #2d2d2d;
+    --white: #ffffff;
+    --green: #4caf50;
+    --green-dark: #2e7d32;
+
+    /* Neutres froids (accordés au bleu) */
+    --mist: #f2f5f9;
+    --line: #dbe2ea;
+    --gray-text: #5a6472;
+    --red: #c62828;
+
+    /* Compatibilité avec les anciens noms */
+    --gray-light: var(--mist);
+    --gray-border: var(--line);
+
+    --shadow-sm: 0 1px 2px rgba(20, 35, 60, 0.06);
+    --shadow-md: 0 12px 32px rgba(20, 35, 60, 0.14);
+    --radius: 8px;
+    --radius-sm: 6px;
+    --container: 1140px;
+
+    /* Segoe UI Variable sous Windows 11, police système ailleurs */
+    --font: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system,
+        Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system,
+        Roboto, "Helvetica Neue", Arial, sans-serif;
+    --transition: 0.2s ease;
+}
+
+/* ============================================
+   2. Reset & base
+   ============================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font);
+    font-size: 16px;
+    background-color: var(--white);
+    color: var(--dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+
+    /* Footer plaqué en bas quand le contenu est court */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+/* Repère d'accessibilité au clavier */
+:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+/* Ancre qui passe sous la navbar fixe */
+[id] {
+    scroll-margin-top: 90px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *, *::before, *::after {
+        transition: none !important;
+    }
+}
+
+/* ============================================
+   3. Navbar (blanche, liseré bas)
+   ============================================ */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--white);
+    border-bottom: 1px solid var(--line);
+    /* Aligné sur le contenu (conteneur de 1140 px + marge de 1,5 rem) */
+    padding: 0.8rem max(1.5rem, calc((100% - var(--container)) / 2 + 1.5rem));
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar__brand {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--dark);
+    white-space: nowrap;
+}
+
+.navbar__brand span {
+    color: var(--blue);
+}
+
+.navbar__links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.navbar__links a {
+    display: inline-block;
+    color: var(--gray-text);
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.45rem 0.8rem;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    transition: color var(--transition), background-color var(--transition);
+}
+
+.navbar__links a:hover {
+    color: var(--blue);
+    background-color: var(--blue-tint);
+}
+
+/* Page courante : texte bleu + trait vert sous le lien */
+.navbar__links a.is-active {
+    color: var(--dark);
+    font-weight: 600;
+    box-shadow: inset 0 -2px 0 var(--green);
+    border-radius: 0;
+}
+
+/* ============================================
+   4. Menu mobile (hamburger)
+   ============================================ */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--dark);
+    border-radius: 2px;
+}
+
+/* ============================================
+   5. Bannière d'accueil (hero)
+   ============================================ */
+.hero {
+    position: relative;
+    overflow: hidden;
+    color: var(--white);
+    /* Couleur de secours si l'image manque */
+    background-color: var(--blue-dark);
+}
+
+.hero__visual {
+    position: absolute;
+    inset: 0;
+}
+
+.hero__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Le texte reste lisible sur toute la largeur de l'image */
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 25, 60, 0.55) 0%, rgba(0, 25, 60, 0) 70%);
+}
+
+.hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container);
+    margin: 0 auto;
+    /* Espace en bas : les nouveautés viennent chevaucher la bannière */
+    padding: 6rem 1.5rem 10rem;
+}
+
+.hero__title {
+    font-size: clamp(2.4rem, 5vw, 3.75rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    max-width: 12ch;
+    margin-bottom: 1rem;
+}
+
+.hero__slogan {
+    font-size: 1.25rem;
+    max-width: 40ch;
+    color: rgba(255, 255, 255, 0.88);
+    margin-bottom: 2.2rem;
+}
+
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.hero__link {
+    color: var(--white);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+
+.hero__link:hover {
+    text-decoration-color: var(--white);
+}
+
+/* ============================================
+   6. Boutons
+   ============================================ */
+.cta,
+.btn,
+.btn-submit {
+    display: inline-block;
+    font: inherit;
+    font-weight: 600;
+    color: var(--white);
+    background-color: var(--blue);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition);
+}
+
+.cta {
+    padding: 0.85rem 1.6rem;
+    font-size: 1.05rem;
+}
+
+/* Sur la bannière bleue : bouton blanc */
+.hero .cta {
+    color: var(--blue-dark);
+    background-color: var(--white);
+}
+
+.cta:hover,
+.btn:hover,
+.btn-submit:hover {
+    background-color: var(--blue-dark);
+}
+
+.hero .cta:hover {
+    color: var(--white);
+    background-color: var(--green-dark);
+}
+
+.btn {
+    padding: 0.6rem 1.2rem;
+}
+
+.btn--small {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.88rem;
+}
+
+.btn--light {
+    color: var(--blue);
+    background-color: var(--blue-tint);
+}
+
+.btn--light:hover {
+    color: var(--white);
+}
+
+.btn--danger {
+    background-color: var(--red);
+}
+
+.btn--danger:hover {
+    background-color: #8e1c1c;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1.05rem;
+}
+
+.btn-submit:disabled,
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   7. Nouveautés (accueil) — chevauchent la bannière
+   ============================================ */
+.shelf {
+    position: relative;
+    z-index: 2;
+    max-width: var(--container);
+    width: calc(100% - 3rem);
+    margin: -7rem auto 0;
+    padding: 1.8rem;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+}
+
+.shelf__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.3rem;
+}
+
+.shelf__head h2 {
+    font-size: 1.5rem;
+}
+
+.shelf__head a {
+    color: var(--blue);
+    font-weight: 600;
+}
+
+.shelf__head a:hover {
+    text-decoration: underline;
+}
+
+/* Toujours 3 nouveautés : 3 colonnes pleines */
+.shelf .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* ============================================
+   8. Présentation (accueil) — titre à gauche, texte à droite
+   ============================================ */
+.intro {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    max-width: var(--container);
+    width: 100%;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+}
+
+.intro__heading {
+    font-size: 1.75rem;
+    color: var(--dark);
+}
+
+.intro__text {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--gray-text);
+    max-width: 62ch;
+}
+
+/* ============================================
+   9. En-tête des pages internes (site + admin)
+   ============================================ */
+.page-header {
+    background-color: var(--mist);
+    border-bottom: 1px solid var(--line);
+}
+
+.page-header__inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 3rem 1.5rem 2.5rem;
+}
+
+.page-header h1 {
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+}
+
+.page-header__sub {
+    font-size: 1.05rem;
+    color: var(--gray-text);
+    max-width: 60ch;
+}
+
+/* ============================================
+   10. Catalogue : recherche + grille des produits
+   ============================================ */
+.products-wrap {
+    max-width: var(--container);
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+}
+
+.search-bar {
+    flex: 0 1 380px;
+}
+
+.search-bar__label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.92rem;
+    margin-bottom: 0.4rem;
+}
+
+.search-bar__input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font: inherit;
+    color: var(--dark);
+    background-color: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.search-bar__input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.15);
+}
+
+.toolbar__count {
+    color: var(--gray-text);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color var(--transition);
+}
+
+.product-card:hover {
+    border-color: var(--blue);
+}
+
+.product-card__image {
+    aspect-ratio: 4 / 3;
+    background-color: var(--mist);
+    overflow: hidden;
+}
+
+.product-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Article sans image : grande initiale */
+.product-card__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-family: var(--font-display);
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--blue);
+    background-color: var(--blue-tint);
+}
+
+.product-card__body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1.1rem 1.2rem 1.2rem;
+}
+
+.product-card__name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 0.4rem;
+}
+
+.product-card__description {
+    font-size: 0.9rem;
+    color: var(--gray-text);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+/* Le prix est l'information clé : grand, chiffres alignés, en bas de carte */
+.product-card__price {
+    margin-top: auto;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+    color: var(--blue-dark);
+}
+
+.products-empty {
+    color: var(--gray-text);
+    padding: 3rem 0;
+}
+
+/* ============================================
+   11. Formulaires (contact + admin)
+   ============================================ */
+.contact-wrap {
+    max-width: 640px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+}
+
+.contact-form {
+    background-color: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 2rem;
+}
+
+.contact-form h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+}
+
+.contact-form h3 {
+    font-size: 1.05rem;
+    margin: 1.8rem 0 1rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--line);
+}
+
+.form-control {
+    margin-bottom: 1.2rem;
+}
+
+.form-control label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+}
+
+.form-control input,
+.form-control textarea,
+.form-control select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font: inherit;
+    color: var(--dark);
+    background-color: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-control input[type="file"] {
+    padding: 0.55rem;
+    background-color: var(--mist);
+}
+
+.form-control input:focus,
+.form-control textarea:focus,
+.form-control select:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.15);
+}
+
+.form-control textarea {
+    resize: vertical;
+}
+
+.form-check {
+    margin-bottom: 1.2rem;
+}
+
+.form-check label {
+    cursor: pointer;
+}
+
+.form-hint {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
+    color: var(--gray-text);
+}
+
+.form-link {
+    text-align: center;
+    margin-top: 1.1rem;
+    font-size: 0.92rem;
+}
+
+.form-link a,
+.panel a:not(.btn) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.form-preview {
+    width: 120px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line);
+    margin-bottom: 0.5rem;
+}
+
+.rules {
+    margin: 0.5rem 0 0 1.2rem;
+    list-style: disc;
+    font-size: 0.85rem;
+    color: var(--gray-text);
+}
+
+/* ============================================
+   12. Alertes (succès / erreurs / info)
+   ============================================ */
+.alert {
+    border-radius: var(--radius-sm);
+    padding: 0.9rem 1.2rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+    border-left: 4px solid;
+    transition: opacity 0.5s ease;
+}
+
+.alert--success {
+    background-color: #edf7ee;
+    color: var(--green-dark);
+    border-color: var(--green);
+}
+
+.alert--error {
+    background-color: #fdecea;
+    color: var(--red);
+    border-color: var(--red);
+}
+
+.alert--error p {
+    margin: 0.2rem 0;
+}
+
+.alert--info {
+    background-color: var(--blue-tint);
+    color: var(--blue-dark);
+    border-color: var(--blue);
+}
+
+.alert.is-hiding {
+    opacity: 0;
+}
+
+/* ============================================
+   13. Pied de page
+   ============================================ */
+.footer {
+    margin-top: auto;
+    background-color: var(--dark);
+    color: rgba(255, 255, 255, 0.75);
+    border-top: 3px solid var(--green);
+    font-size: 0.92rem;
+}
+
+.footer__inner {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 1.5rem;
+}
+
+.footer__brand {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+}
+
+.footer__brand span {
+    color: #8fb8e8;
+}
+
+.footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.5rem;
+}
+
+.footer__links a:hover {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+.footer__legal {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 1rem 1.5rem 1.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.85rem;
+}
+
+/* Footer de l'admin : une seule ligne */
+.admin .footer {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+/* ============================================
+   14. Administration
+   ============================================ */
+.navbar__tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--green-dark);
+    margin-left: 0.3rem;
+    letter-spacing: 0;
+}
+
+.navbar__logout button {
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--gray-text);
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 0.8rem;
+    margin-left: 0.4rem;
+    cursor: pointer;
+}
+
+.navbar__logout button:hover {
+    color: var(--red);
+    border-color: var(--red);
+}
+
+.admin-wrap {
+    max-width: var(--container);
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+.admin-form {
+    max-width: 560px;
+    margin: 0 auto 2rem;
+}
+
+.muted {
+    color: var(--gray-text);
+    font-size: 0.92rem;
+}
+
+.panel {
+    background-color: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.panel h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+/* Tableau de bord : modules */
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.module-card {
+    display: block;
+    background-color: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.4rem;
+    transition: border-color var(--transition);
+}
+
+.module-card:hover {
+    border-color: var(--blue);
+}
+
+.module-card h3 {
+    font-size: 1.1rem;
+    color: var(--blue);
+    margin-bottom: 0.3rem;
+}
+
+.module-card p {
+    color: var(--gray-text);
+    font-size: 0.92rem;
+}
+
+/* Module Articles : liste à gauche, formulaire à droite */
+.split {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.split__side {
+    position: sticky;
+    top: 90px;
+}
+
+.item-list {
+    border-top: 1px solid var(--line);
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 0.4rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.item.is-editing {
+    background-color: var(--blue-tint);
+}
+
+.item__thumb {
+    flex: 0 0 64px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background-color: var(--mist);
+    overflow: hidden;
+}
+
+.item__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item__text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.item__text strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.item__price {
+    font-variant-numeric: tabular-nums;
+    color: var(--gray-text);
+    font-size: 0.92rem;
+}
+
+.item__actions {
+    display: flex;
+    gap: 0.4rem;
+}
+
+/* Onglets (Maintenance) */
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.tabs a {
+    padding: 0.6rem 1rem;
+    color: var(--gray-text);
+    font-weight: 600;
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
+}
+
+.tabs a:hover {
+    color: var(--blue);
+}
+
+.tabs a.is-active {
+    color: var(--dark);
+    border-bottom-color: var(--green);
+}
+
+/* Tableaux (journaux, état système) */
+.table-wrap {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.data-table th,
+.data-table td {
+    text-align: left;
+    padding: 0.6rem 0.7rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+}
+
+.data-table th {
+    background-color: var(--mist);
+    font-weight: 600;
+}
+
+.data-table td.wrap {
+    word-break: break-word;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.1rem 0.55rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    background-color: var(--mist);
+    color: var(--dark);
+}
+
+.badge--ok {
+    background-color: #edf7ee;
+    color: var(--green-dark);
+}
+
+.badge--ko {
+    background-color: #fdecea;
+    color: var(--red);
+}
+
+.badge--warn {
+    background-color: #fff4e5;
+    color: #8a5300;
+}
+
+/* Filtres des journaux */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    align-items: flex-end;
+}
+
+.filters .form-control {
+    margin-bottom: 0;
+    flex: 1 1 150px;
+}
+
+/* ============================================
+   15. Responsive — tablette & mobile
+   ============================================ */
+@media (max-width: 900px) {
+    .shelf .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+
+    .intro {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 3.5rem 1.5rem;
+    }
+
+    .split {
+        grid-template-columns: 1fr;
+    }
+
+    .split__side {
+        position: static;
+    }
+}
+
+@media (max-width: 640px) {
+    .navbar {
+        flex-wrap: wrap;
+        padding: 0.7rem 1rem;
+    }
+
+    /* Affiche le bouton hamburger */
+    .menu-toggle {
+        display: flex;
+    }
+
+    /* Menu masqué par défaut, affiché via .is-open */
+    .navbar__links {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        padding-bottom: 0.4rem;
+    }
+
+    .navbar__links.is-open {
+        display: flex;
+    }
+
+    .navbar__links a,
+    .navbar__logout button {
+        display: block;
+        width: 100%;
+        text-align: left;
+        margin-left: 0;
+    }
+
+    .navbar__links a.is-active {
+        box-shadow: inset 3px 0 0 var(--green);
+    }
+
+    .hero__inner {
+        padding: 3.5rem 1rem 8rem;
+    }
+
+    .hero__slogan {
+        font-size: 1.1rem;
+    }
+
+    .shelf {
+        width: calc(100% - 2rem);
+        padding: 1.2rem;
+    }
+
+    .page-header__inner {
+        padding: 2rem 1rem 1.8rem;
+    }
+
+    .products-wrap,
+    .contact-wrap,
+    .admin-wrap {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-bar {
+        flex-basis: auto;
+    }
+
+    .contact-form,
+    .panel {
+        padding: 1.2rem;
+    }
+
+    .item {
+        flex-wrap: wrap;
+    }
+
+    .item__actions {
+        width: 100%;
+    }
+}
