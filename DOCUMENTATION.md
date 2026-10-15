@@ -31,6 +31,7 @@ Le site comporte deux parties.
 | Accueil | `index.php` | Bannière, encart « Nouveautés » (3 derniers articles), section « Qui sommes-nous ? » |
 | Nos Produits | `products.php` | Grille de tous les articles + recherche en temps réel |
 | Contact | `contact.php` | Formulaire : le message est journalisé puis envoyé par e-mail |
+| Mentions légales | `mentions-legales.php` | Éditeur (entreprise fictive), hébergement local, données personnelles, cookie (lien dans le pied de page) |
 
 **Administration** (TP2), sous `admin/`
 
@@ -64,7 +65,7 @@ Il n'y a **qu'un seul compte administrateur** et aucun compte visiteur (`app/ins
 | Extensions PHP | `pdo_mysql`, `openssl`, `mbstring`, `json` (contrôlées), `fileinfo` (uploads), `curl` (tests) | `admin/maintenance.php`, `app/catalog.php`, `tests/http_test.php` |
 | Front | HTML5, un seul CSS (`style.css`), un seul JS vanilla (`script.js`) | `app/site.php`, `app/layout.php` |
 | Police | Pile système sans-serif (`Segoe UI Variable`, `system-ui`) | `style.css` (`--font`) |
-| Tests | Script PHP + cURL contre Apache : 91 vérifications `check()` | `tests/http_test.php` |
+| Tests | Script PHP + cURL contre Apache : 93 vérifications `check()` | `tests/http_test.php` |
 
 Aucune ressource externe (CDN, police web, script tiers) n'est chargée : aucune URL externe dans `style.css`, `app/site.php` ou `app/layout.php`.
 
@@ -77,6 +78,7 @@ infoleader/
 ├── index.php              Accueil (bannière, nouveautés, présentation)
 ├── products.php           Catalogue + recherche en temps réel
 ├── contact.php            Formulaire de contact (journal + e-mail)
+├── mentions-legales.php   Mentions légales et confidentialité (RGPD)
 ├── style.css              Feuille de style unique (site public ET admin)
 ├── script.js              Script unique : menu, filtre, messages, confirmations
 ├── products.json          Données initiales du catalogue (lu seulement par l'installeur)
@@ -455,7 +457,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 ### Conformité / RGPD (Règlement général sur la protection des données)
 
 8. ✅ ~~Aucune information sur l'usage des données sous le formulaire de contact.~~ Corrigé le 15/10/2026 (tâche RGPD-1) : une mention sous le bouton « Envoyer » indique l'usage, le destinataire, la conservation et la façon de demander la suppression (`contact.php`). La durée de conservation reste « jusqu'à suppression par l'administrateur » (voir L10).
-9. 🟠 **Pas de page « Mentions légales / Confidentialité »** (aucun lien dans `site_footer()`, `app/site.php`).
+9. ✅ ~~Pas de page « Mentions légales / Confidentialité ».~~ Corrigé le 15/10/2026 (tâche RGPD-2) : `mentions-legales.php`, reliée dans `site_footer()` (`app/site.php`) et depuis la mention du formulaire de contact.
 10. 🟠 **Aucune durée de conservation.** Les messages de contact restent dans `logs` jusqu'à une purge manuelle (`admin/maintenance.php`). La table grossit sans limite.
 11. 🟡 **La sauvegarde JSON contient les messages de contact** (données personnelles) en clair, avec nom et e-mail des visiteurs (`admin/maintenance.php`, action `backup`).
 

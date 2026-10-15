@@ -252,6 +252,12 @@ try {
         check(str_contains($headers, "Content-Security-Policy: default-src 'self'"), "CSP envoyée sur $page");
     }
 
+    // Page « Mentions légales et confidentialité » (TODO_LIST.md, RGPD-2)
+    [$code, $body] = http('mentions-legales.php');
+    check($code === 200 && str_contains($body, 'entreprise fictive') && str_contains($body, 'INFOLEADER_SID'), 'Mentions légales : page affichée (entreprise fictive, cookie)');
+    [, $body] = http('index.php');
+    check(str_contains($body, 'href="mentions-legales.php"'), 'Mentions légales : lien dans le pied de page');
+
     // Contact → information RGPD, journal, puis filtres
     [, $body] = http('contact.php');
     check(str_contains($body, 'servent uniquement à répondre') && str_contains($body, 'faire supprimer'), 'Contact : information RGPD affichée sous le formulaire');

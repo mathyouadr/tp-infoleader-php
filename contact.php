@@ -148,6 +148,7 @@ site_header("Contact", "Écrivez à InfoLeader : une question, un devis, un proj
                     d'administration du site jusqu'à leur suppression par l'administrateur.
                     Elles ne sont ni vendues ni partagées. Pour les consulter ou les faire supprimer,
                     écrivez-nous via ce formulaire.
+                    <a href="mentions-legales.php#donnees">En savoir plus</a>.
                 </p>
             </form>
 

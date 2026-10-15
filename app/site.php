@@ -59,6 +59,7 @@ function site_footer(): void
                 <?php foreach (SITE_LINKS as $href => $label): ?>
                     <li><a href="<?= $href ?>"><?= e($label) ?></a></li>
                 <?php endforeach; ?>
+                <li><a href="mentions-legales.php">Mentions légales</a></li>
                 <li><a href="admin/">Administration</a></li>
             </ul>
         </div>

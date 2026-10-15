@@ -16,7 +16,7 @@ Showcase site for an IT hardware company (TP1) + secured admin panel (TP2). Fren
 ```bash
 php composer.phar install                           # PHPMailer
 php app/install.php --email=admin@example.com       # DB + user + schema + seed + first admin (prints password once)
-php tests/http_test.php                             # end-to-end tests against Apache (91 checks, must stay green)
+php tests/http_test.php                             # end-to-end tests against Apache (93 checks, must stay green)
 ```
 
 `app/install.php` is CLI-only and re-runnable: reuses `storage/config.php`, applies `app/schema.sql` (`CREATE TABLE IF NOT EXISTS`), seeds `products` from `products.json` only if the table is empty, creates an admin only if none exists.
@@ -54,6 +54,7 @@ infoleader/
 ├── index.php            ← home: hero (banner), "Nouveautés" (3 latest products), "Qui sommes-nous ?"
 ├── products.php         ← catalogue from MySQL `products` + live search (#product-search, #products-grid)
 ├── contact.php          ← contact form: logs the message (type `contact`) + e-mails it to the configured recipient
+├── mentions-legales.php ← legal notice + privacy (fictitious company, data collected, session cookie)
 ├── style.css            ← single stylesheet for public site AND admin
 ├── script.js            ← menu, smooth scroll, product filter, auto-hiding alerts, wait countdown, confirm dialogs
 ├── products.json        ← install seed only (no longer read by pages)
@@ -128,7 +129,7 @@ admin_footer();
 
 - French for UI text and code comments; code must be commented and readable.
 - Full HTML5 documents (`lang="fr"`, UTF-8) via the shared layouts — don't duplicate nav/footer markup.
-- Filenames lowercase. Public nav: `index.php`, `products.php`, `contact.php` (+ "Administration" link in the footer).
+- Filenames lowercase. Public nav: `index.php`, `products.php`, `contact.php` (+ "Mentions légales" and "Administration" links in the footer).
 - Flash messages (`flash()` / `render_flashes()`) auto-hide after ~5.5 s via `.alert[data-autohide]`.
 - Forms after a throttled failure get `data-wait="N"` (button countdown, cosmetic — the server enforces the limit).
 - Destructive actions: `<form data-confirm="...">` (JS confirm) **plus** a server-side check (confirmation checkbox or explicit action).
