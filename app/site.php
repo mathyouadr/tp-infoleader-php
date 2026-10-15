@@ -104,9 +104,11 @@ function product_card(array $product, string $headingTag = 'h2'): string
     $name = e($product['name']);
     $description = e($product['description']);
     $price = e(format_price($product['price']));
+    // Lien vers le formulaire de contact, message pré-rempli avec le nom de l'article
+    $quote = e(site_base() . 'contact.php?produit=' . rawurlencode($product['name']) . '#contenu');
     // Sans image : grande initiale sur fond teinté
     $image = $product['image']
-        ? '<img src="' . e($product['image']) . '" alt="Photo : ' . $name . '" loading="lazy" decoding="async">'
+        ? '<img src="' . e($product['image']) . '" alt="' . $name . '" loading="lazy" decoding="async">'
         : '<span class="product-card__placeholder" aria-hidden="true">' . e(mb_substr($product['name'], 0, 1)) . '</span>';
     return <<<HTML
 <article class="product-card" data-name="$name" data-description="$description">
@@ -114,7 +116,10 @@ function product_card(array $product, string $headingTag = 'h2'): string
     <div class="product-card__body">
         <$headingTag class="product-card__name">$name</$headingTag>
         <p class="product-card__description">$description</p>
-        <p class="product-card__price">$price</p>
+        <div class="product-card__footer">
+            <p class="product-card__price">$price</p>
+            <a class="product-card__quote" href="$quote">Demander un devis</a>
+        </div>
     </div>
 </article>
 HTML;

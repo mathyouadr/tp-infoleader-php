@@ -21,13 +21,13 @@ site_header('Accueil', 'InfoLeader : matériel informatique sélectionné pour s
             <img src="assets/banniere.webp" alt="" width="1584" height="396" fetchpriority="high">
         </div>
         <div class="hero__inner">
-            <h1 class="hero__title">Bienvenue chez InfoLeader</h1>
+            <h1 class="hero__title">Du matériel informatique choisi pour durer</h1>
             <!-- Slogan engageant -->
-            <p class="hero__slogan">La technologie au service de votre réussite.</p>
+            <p class="hero__slogan">Claviers, écrans, casques et accessoires sélectionnés pour leur fiabilité. Un devis personnalisé pour les entreprises comme pour les particuliers.</p>
             <!-- Appel à l'action vers la page "Nos Produits" -->
             <p class="hero__actions">
-                <a href="products.php" class="cta">Découvrir nos produits</a>
-                <a href="contact.php" class="hero__link">Nous contacter</a>
+                <a href="products.php" class="cta">Voir le catalogue</a>
+                <a href="contact.php" class="hero__link">Demander un devis</a>
             </p>
         </div>
     </header>
@@ -46,6 +46,25 @@ site_header('Accueil', 'InfoLeader : matériel informatique sélectionné pour s
             </div>
         </section>
     <?php endif; ?>
+
+    <!-- ====== Parcours d'achat : une vraie séquence, d'où la numérotation ====== -->
+    <section class="steps" aria-labelledby="steps-title">
+        <h2 id="steps-title" class="steps__title">Obtenir votre matériel en trois étapes</h2>
+        <ol class="steps__list">
+            <li>
+                <h3>Choisissez</h3>
+                <p>Parcourez le <a href="products.php">catalogue</a> et repérez les articles qui vous intéressent.</p>
+            </li>
+            <li>
+                <h3>Demandez un devis</h3>
+                <p>Cliquez sur « Demander un devis » sous l'article : le formulaire est déjà pré-rempli.</p>
+            </li>
+            <li>
+                <h3>Recevez notre réponse</h3>
+                <p>Nous vous répondons par e-mail avec le prix exact et nos conseils.</p>
+            </li>
+        </ol>
+    </section>
 
     <!-- ====== Paragraphe d'introduction ====== -->
     <section class="intro">

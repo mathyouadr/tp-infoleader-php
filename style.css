@@ -257,7 +257,7 @@ img {
     font-size: clamp(2.4rem, 5vw, 3.75rem);
     font-weight: 700;
     letter-spacing: -0.03em;
-    max-width: 12ch;
+    max-width: 16ch;
     margin-bottom: 1rem;
 }
 
@@ -403,6 +403,59 @@ img {
 /* Toujours 3 nouveautés : 3 colonnes pleines */
 .shelf .products-grid {
     grid-template-columns: repeat(3, 1fr);
+}
+
+/* Parcours en 3 étapes (accueil) : numéros dessinés par le compteur de la liste */
+.steps {
+    max-width: var(--container);
+    width: 100%;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 0;
+}
+
+.steps__title {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+}
+
+.steps__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    list-style: none;
+    counter-reset: step;
+}
+
+.steps__list li {
+    counter-increment: step;
+    border-top: 2px solid var(--line);
+    padding-top: 1.2rem;
+}
+
+.steps__list li::before {
+    content: counter(step);
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--blue);
+    margin-bottom: 0.8rem;
+}
+
+.steps__list h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.4rem;
+}
+
+.steps__list p {
+    color: var(--gray-text);
+    line-height: 1.6;
+}
+
+.steps__list a {
+    color: var(--blue);
+    text-decoration: underline;
 }
 
 /* ============================================
@@ -576,8 +629,29 @@ img {
 }
 
 /* Le prix est l'information clé : grand, chiffres alignés, en bas de carte */
-.product-card__price {
+.product-card__footer {
     margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1rem;
+}
+
+.product-card__quote {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(0, 86, 179, 0.35);
+}
+
+.product-card__quote:hover {
+    text-decoration-color: var(--blue);
+}
+
+.product-card__price {
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 700;
@@ -594,8 +668,44 @@ img {
 /* ============================================
    11. Formulaires (contact + admin)
    ============================================ */
+/* Contact : formulaire + encart « après votre message » */
+.contact-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.contact-aside {
+    padding: 1.5rem;
+    background-color: var(--mist);
+    border-radius: var(--radius);
+    line-height: 1.6;
+}
+
+.contact-aside h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.8rem;
+}
+
+.contact-aside ol {
+    list-style: decimal;
+    padding-left: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--gray-text);
+}
+
+.contact-aside li {
+    margin-bottom: 0.5rem;
+}
+
+.contact-aside a {
+    color: var(--blue);
+    text-decoration: underline;
+}
+
 .contact-wrap {
-    max-width: 640px;
+    max-width: 1000px;
     width: 100%;
     margin: 0 auto;
     padding: 2.5rem 1.5rem 4rem;
@@ -1129,6 +1239,15 @@ img {
         grid-template-columns: 1fr;
         gap: 1rem;
         padding: 3.5rem 1.5rem;
+    }
+
+    .steps {
+        padding-top: 3.5rem;
+    }
+
+    .steps__list,
+    .contact-layout {
+        grid-template-columns: 1fr;
     }
 
     .split {

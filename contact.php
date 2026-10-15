@@ -20,6 +20,12 @@ $nom = '';
 $email = '';
 $message = '';
 
+// Arrivée depuis « Demander un devis » : message pré-rempli avec le nom de l'article
+$produit = mb_substr(trim((string) ($_GET['produit'] ?? '')), 0, 120);
+if (!is_post() && $produit !== '') {
+    $message = "Bonjour,\n\nJe souhaite recevoir un devis pour : $produit.\nQuantité : \n\nMerci.";
+}
+
 // Traitement du formulaire uniquement en cas d'envoi POST
 if (is_post()) {
 
@@ -82,7 +88,7 @@ site_header('Contact', 'Écrivez à InfoLeader : une question, un devis, un proj
         <div class="page-header__inner">
             <h1>Contactez-nous</h1>
             <p class="page-header__sub">
-                Une question, un projet ? Écrivez-nous, nous répondons rapidement.
+                Une question, un devis, un projet : écrivez-nous, nous répondons par e-mail.
             </p>
         </div>
     </header>
@@ -100,6 +106,8 @@ site_header('Contact', 'Écrivez à InfoLeader : une question, un devis, un proj
 
         <?php else: ?>
 
+          <div class="contact-layout">
+            <div>
             <!-- Erreurs renvoyées par PHP -->
             <?php if ($errors): ?>
                 <div id="server-errors" class="alert alert--error" role="alert">
@@ -120,7 +128,7 @@ site_header('Contact', 'Écrivez à InfoLeader : une question, un devis, un proj
                 </div>
 
                 <div class="form-control">
-                    <label for="contact-email">Email</label>
+                    <label for="contact-email">Adresse e-mail</label>
                     <input type="email" id="contact-email" name="email" value="<?= e($email) ?>"
                            placeholder="votre@email.fr" required autocomplete="email">
                 </div>
@@ -143,6 +151,19 @@ site_header('Contact', 'Écrivez à InfoLeader : une question, un devis, un proj
                     <a href="mentions-legales.php#donnees">En savoir plus</a>.
                 </p>
             </form>
+            </div>
+
+            <!-- Ce qui se passe après l'envoi -->
+            <aside class="contact-aside" aria-labelledby="after-title">
+                <h2 id="after-title">Après votre message</h2>
+                <ol>
+                    <li>Votre message arrive directement à l'équipe InfoLeader.</li>
+                    <li>Nous vous répondons à l'adresse e-mail indiquée.</li>
+                    <li>Pour un devis, la réponse précise le prix exact et nos conseils.</li>
+                </ol>
+                <p>Une question simple ? La réponse est peut-être déjà dans la <a href="faq.php">FAQ</a>.</p>
+            </aside>
+          </div>
 
         <?php endif; ?>
 
