@@ -1,6 +1,6 @@
 # InfoLeader — Stack, site et état d'avancement
 
-*Mis à jour le 13/10/2026.*
+*Mis à jour le 15/10/2026 (TP 2bis : voir `TODO_LIST.md` pour les améliorations faites depuis).*
 
 ## 1. Le site en bref
 
@@ -25,7 +25,7 @@ InfoLeader est le site vitrine d'une entreprise de matériel informatique. Le TP
 | Dépendances | **Composer** | Une seule : `phpmailer/phpmailer` |
 | Front | HTML5, **CSS** natif, **JavaScript vanilla** | Aucun framework (ni Bootstrap, ni jQuery), aucune ressource externe : le site fonctionne hors ligne |
 | Police | Pile système sans-serif | `Segoe UI Variable` sous Windows 11, `system-ui` ailleurs |
-| Tests | Script PHP + cURL | `php tests/http_test.php` : 86 vérifications de bout en bout contre Apache |
+| Tests | Script PHP + cURL | `php tests/http_test.php` : 98 vérifications de bout en bout contre Apache |
 
 ### Arborescence
 
@@ -104,7 +104,7 @@ infoleader/
 | Nouvelle esthétique | Captures d'écran du site public sur ordinateur et sur mobile (390 px) |
 | Protection des dossiers | Requêtes HTTP : 403 sur `app/`, `storage/`, `vendor/`, `tests/`, `composer.json`, `.md` |
 
-**Suite de tests : 86/86 réussis.** Aucun e-mail réel n'est envoyé pendant les tests.
+**Suite de tests : 98 vérifications** (dernière exécution complète : 0 échec, 2 vérifications Mailjet ignorées car Mailjet bloquait temporairement). Aucun e-mail réel n'est envoyé pendant les tests.
 
 ### Bugs corrigés en cours de route
 

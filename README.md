@@ -98,11 +98,12 @@ mkdir C:\sauvegardes
 php tests/http_test.php
 ```
 
-Tests de bout en bout contre Apache (84 vérifications). L'envoi d'e-mails est désactivé pendant les tests. Le compte admin et la configuration e-mail sont sauvegardés puis restaurés.
+Tests de bout en bout contre Apache (98 vérifications). Si WAMP est arrêté, le script le dit et s'arrête. Si Mailjet ne répond pas, ses 2 vérifications réseau sont signalées « ignorées ». L'envoi d'e-mails est désactivé pendant les tests. Le compte admin et la configuration e-mail sont sauvegardés puis restaurés.
 L'étape Mailjet se connecte réellement à `in-v3.mailjet.com` avec de faux identifiants (refus d'authentification attendu).
 
 ## Notes
 
-- Le formulaire de contact n'envoie toujours pas d'e-mail : le message est enregistré dans les journaux (Maintenance → Journaux).
+- Le formulaire de contact enregistre le message dans les journaux (Maintenance → Journaux, 12 mois maximum) **et** l'envoie par e-mail au destinataire configuré (Admin → E-mails).
+- TP 2bis : analyse dans [`DOCUMENTATION.md`](DOCUMENTATION.md), plan d'améliorations dans [`TODO_LIST.md`](TODO_LIST.md), consignes données à l'IA dans [`PROMPTS.md`](PROMPTS.md).
 - Les articles sont en base (table `products`) et se gèrent dans Admin → **Articles** (ajout, modification, suppression, image JPEG/PNG/WebP ≤ 2 Mo).
   `products.json` ne sert plus qu'à l'import initial par `app/install.php`. Images envoyées : `assets/products/uploads/` (aucun script exécutable).

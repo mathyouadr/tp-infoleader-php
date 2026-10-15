@@ -87,7 +87,7 @@ Ce plan est pensé pour vous, étudiant en BTS SIO 1re année. Toutes les action
 
 | # | Action | Prio | Complexité | Fichiers concernés | Critère d'acceptation | État |
 |---|---|---|---|---|---|---|
-| DOC-1 | Mettre à jour `README.md` et `ETAT-DU-PROJET.md` (L21) | P1 | simple | `README.md`, `ETAT-DU-PROJET.md` | Plus de phrase « le formulaire de contact n'envoie toujours pas d'e-mail » ; le nombre de vérifications annoncé est celui affiché par `php tests/http_test.php` | ⬜ |
+| DOC-1 | Mettre à jour `README.md` et `ETAT-DU-PROJET.md` (L21) | P1 | simple | `README.md`, `ETAT-DU-PROJET.md` | Plus de phrase « le formulaire de contact n'envoie toujours pas d'e-mail » ; le nombre de vérifications annoncé est celui affiché par `php tests/http_test.php` | ✅ 15/10/2026 |
 | DOC-2 | Tenir `DOCUMENTATION.md` et `TODO_LIST.md` à jour après chaque tâche, puis les redéposer sur GitHub | P1 | simple | `DOCUMENTATION.md`, `TODO_LIST.md` | Chaque tâche terminée est marquée ✅ avec sa date ; la limite correspondante de `DOCUMENTATION.md` est retirée ou mise à jour | ⬜ (continu) |
 
 ---
@@ -129,7 +129,7 @@ Traitez les jalons dans l'ordre. À l'intérieur d'un jalon, une tâche à la fo
 | **0 — Avant la publication sur GitHub** | Ne publier aucun secret | SEC-1 ✅ | P0 |
 | **1 — Urgent** | Supprimer le risque de la clé exposée, respecter l'obligation d'information | SEC-2, RGPD-1 ✅ | P0 |
 | **2 — Sécurité et conformité** | Renforcer le site public et la gestion des données personnelles | SEC-3 ✅, RGPD-2 ✅, RGPD-3 ✅, EXPL-2 | P1 |
-| **3 — Fiabilité** | Pouvoir restaurer la base, fiabiliser le code et les tests, documentation juste | EXPL-1 ✅, DATA-1 ✅, CODE-1 ✅, CODE-2 ✅, DOC-1 | P1 |
+| **3 — Fiabilité** | Pouvoir restaurer la base, fiabiliser le code et les tests, documentation juste | EXPL-1 ✅, DATA-1 ✅, CODE-1 ✅, CODE-2 ✅, DOC-1 ✅ | P1 |
 | **4 — Améliorations rapides** | Petits gains de confort, d'accessibilité et de propreté | DATA-2 ✅, CODE-3 ✅, CODE-4, FRONT-2 ✅, FRONT-3 ✅, FRONT-4 ✅, FRONT-5, EXPL-3, EXPL-4 ✅, RGPD-4 ✅ | P2 |
 | **5 — Pour aller plus loin** | Tâches plus longues, si le temps le permet | FRONT-1, SEC-4 ✅, SEC-5 ✅, SEC-6 ✅ | P2 |
 | **En continu** | Garder la documentation fidèle au code | DOC-2 | P1 |
