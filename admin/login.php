@@ -26,7 +26,9 @@ if (is_post()) {
         $stmt->execute([$email]);
         $admin = $stmt->fetch();
 
-        if ($admin && password_verify($password, $admin['password_hash'])) {
+        // Hachage factice si l'adresse est inconnue : même temps de réponse, pas d'énumération
+        $hash = $admin['password_hash'] ?? '$2y$10$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+        if (password_verify($password, $hash) && $admin) {
             throttle_reset('login');
             login($admin);
             log_event('login_ok', 'Connexion réussie : ' . $admin['email']);

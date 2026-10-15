@@ -449,7 +449,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 2. ✅ ~~Pas de CSP sur le site public.~~ Corrigé le 15/10/2026 (tâche SEC-3) : l'en-tête `Content-Security-Policy` est désormais envoyé par `app/bootstrap.php` pour toutes les pages, publiques et admin.
 3. 🟠 **Compte MySQL `root` sans mot de passe** par défaut sous WAMP. L'installeur le suppose (`--root-pass` vide). Tout programme local peut alors lire ou effacer la base.
 4. 🟡 **Limitation de débit sans verrou.** Deux requêtes strictement simultanées peuvent passer pendant un délai (commentaire `ponytail:` dans `throttle_fail()`, `app/bootstrap.php`).
-5. 🟡 **Énumération possible par le temps de réponse.** Dans `admin/login.php`, `password_verify()` n'est appelé que si l'adresse existe. Une adresse inconnue répond donc plus vite. Le message, lui, est identique.
+5. ✅ ~~Énumération possible par le temps de réponse.~~ Corrigé le 15/10/2026 (tâche SEC-4) : `admin/login.php` vérifie toujours un hachage (factice si l'adresse est inconnue).
 6. 🟡 **Les autres sessions restent ouvertes** après un changement ou une réinitialisation de mot de passe (`admin/password.php`, `admin/reset.php`). Seule la session courante change d'ID.
 7. 🟡 **`display_errors = On` dans `phpForApache.ini`.** Le code le désactive à l'exécution, mais une erreur de syntaxe PHP s'afficherait avant, avec le chemin des fichiers.
 

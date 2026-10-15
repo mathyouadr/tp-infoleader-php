@@ -141,6 +141,7 @@ Commence par la première tâche P0.
 | RGPD-4 | Case « Exclure les messages de contact » dans Maintenance → Sauvegarde (cochée par défaut) | Syntaxe PHP vérifiée (tests sautés à la demande de l'étudiant) |
 | EXPL-4 | Bouton « Vider le log SMTP » avec case de confirmation dans Maintenance (onglet renommé « Fichiers temporaires ») | Syntaxe PHP vérifiée (tests sautés à la demande de l'étudiant) |
 | FRONT-3 | Lien d'évitement `.skip-link` vers `#contenu` sur toutes les pages publiques et admin | Syntaxe PHP vérifiée (tests sautés à la demande de l'étudiant) |
+| SEC-4 | Hachage bcrypt factice dans `admin/login.php` : `password_verify()` est toujours appelé | Syntaxe PHP vérifiée (tests sautés à la demande de l'étudiant) |
 
 *(Compléter ce tableau à chaque nouvelle tâche validée.)*
 
