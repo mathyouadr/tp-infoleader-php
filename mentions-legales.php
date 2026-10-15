@@ -67,8 +67,9 @@ site_header('Mentions légales', 'Mentions légales et politique de confidential
                 </li>
             </ul>
             <p>
-                <strong>Durée de conservation</strong> : ces données sont gardées jusqu'à leur suppression
-                par l'administrateur, depuis l'outil Maintenance du site.
+                <strong>Durée de conservation</strong> : ces données sont gardées 12 mois au maximum,
+                puis supprimées automatiquement. L'administrateur peut aussi les supprimer plus tôt,
+                depuis l'outil Maintenance du site.
             </p>
             <p>
                 <strong>Partage</strong> : vos données ne sont ni vendues ni transmises à des tiers.

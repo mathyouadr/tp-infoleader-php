@@ -119,6 +119,15 @@ try {
         check(str_contains($body, 'href="' . $module . '"'), "Lien vers le module $module");
     }
 
+    // Conservation 12 mois (RGPD-3) : purge à l'ouverture du tableau de bord
+    $old = db()->prepare("INSERT INTO logs (type, ip, message, created_at) VALUES ('contact', '127.0.0.1', ?, NOW() - INTERVAL ? MONTH)");
+    $old->execute(['rgpd3-ancien', 13]);
+    $old->execute(['rgpd3-recent', 11]);
+    http('admin/index.php');
+    $left = db()->query("SELECT message FROM logs WHERE message LIKE 'rgpd3-%'")->fetchAll(PDO::FETCH_COLUMN);
+    check($left === ['rgpd3-recent'], 'Conservation : journal de 13 mois supprimé, 11 mois conservé');
+    db()->exec("DELETE FROM logs WHERE message = 'rgpd3-recent'");
+
     [$code, , $loc] = http('admin/logout.php', ['csrf' => csrf('admin/index.php')]);
     check($code === 302 && str_contains($loc, 'login.php'), 'Déconnexion');
     [$code] = http('admin/index.php');

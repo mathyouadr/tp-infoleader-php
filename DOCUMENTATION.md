@@ -65,7 +65,7 @@ Il n'y a **qu'un seul compte administrateur** et aucun compte visiteur (`app/ins
 | Extensions PHP | `pdo_mysql`, `openssl`, `mbstring`, `json` (contrôlées), `fileinfo` (uploads), `curl` (tests) | `admin/maintenance.php`, `app/catalog.php`, `tests/http_test.php` |
 | Front | HTML5, un seul CSS (`style.css`), un seul JS vanilla (`script.js`) | `app/site.php`, `app/layout.php` |
 | Police | Pile système sans-serif (`Segoe UI Variable`, `system-ui`) | `style.css` (`--font`) |
-| Tests | Script PHP + cURL contre Apache : 93 vérifications `check()` | `tests/http_test.php` |
+| Tests | Script PHP + cURL contre Apache : 94 vérifications `check()` | `tests/http_test.php` |
 
 Aucune ressource externe (CDN, police web, script tiers) n'est chargée : aucune URL externe dans `style.css`, `app/site.php` ou `app/layout.php`.
 
@@ -458,7 +458,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 
 8. ✅ ~~Aucune information sur l'usage des données sous le formulaire de contact.~~ Corrigé le 15/10/2026 (tâche RGPD-1) : une mention sous le bouton « Envoyer » indique l'usage, le destinataire, la conservation et la façon de demander la suppression (`contact.php`). La durée de conservation reste « jusqu'à suppression par l'administrateur » (voir L10).
 9. ✅ ~~Pas de page « Mentions légales / Confidentialité ».~~ Corrigé le 15/10/2026 (tâche RGPD-2) : `mentions-legales.php`, reliée dans `site_footer()` (`app/site.php`) et depuis la mention du formulaire de contact.
-10. 🟠 **Aucune durée de conservation.** Les messages de contact restent dans `logs` jusqu'à une purge manuelle (`admin/maintenance.php`). La table grossit sans limite.
+10. ✅ ~~Aucune durée de conservation.~~ Corrigé le 15/10/2026 (tâche RGPD-3) : à chaque ouverture du tableau de bord, `admin/index.php` supprime les journaux de plus de 12 mois (et les compteurs anti force brute périmés). La mention du formulaire de contact et `mentions-legales.php` annoncent « 12 mois au maximum ».
 11. 🟡 **La sauvegarde JSON contient les messages de contact** (données personnelles) en clair, avec nom et e-mail des visiteurs (`admin/maintenance.php`, action `backup`).
 
 ### Stockage et exploitation

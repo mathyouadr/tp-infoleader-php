@@ -64,8 +64,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] === "POST") 
         $to = mail_config()["to_email"];
         if ($to !== "") {
             // Nom sans retour à la ligne : aucune injection d'en-tête possible
-            $sujet = "InfoLeader - Message de " . str_replace(["", "
-"], " ", $nom);
+            $sujet = "InfoLeader - Message de " . str_replace(["\r", "\n"], " ", $nom);
             $corps = "Nouveau message reçu via le formulaire de contact.
 
 "
@@ -145,7 +144,7 @@ site_header("Contact", "Écrivez à InfoLeader : une question, un devis, un proj
                 <p class="form-hint form-notice">
                     Vos données (nom, e-mail, message) servent uniquement à répondre à votre demande.
                     Elles sont transmises par e-mail à l'équipe InfoLeader et conservées dans l'espace
-                    d'administration du site jusqu'à leur suppression par l'administrateur.
+                    d'administration du site 12 mois au maximum, puis supprimées automatiquement.
                     Elles ne sont ni vendues ni partagées. Pour les consulter ou les faire supprimer,
                     écrivez-nous via ce formulaire.
                     <a href="mentions-legales.php#donnees">En savoir plus</a>.

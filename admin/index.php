@@ -9,6 +9,15 @@ require ROOT . '/app/mailer.php';
 
 $admin = require_login();
 
+// Durée de conservation (RGPD) : à chaque ouverture du tableau de bord,
+// les journaux de plus de 12 mois et les compteurs anti force brute périmés sont supprimés
+$purged = db()->exec('DELETE FROM logs WHERE created_at < NOW() - INTERVAL 12 MONTH');
+if ($purged > 0) {
+    log_event('event', "Conservation : $purged entrée(s) de journal de plus de 12 mois supprimée(s)");
+}
+db()->prepare('DELETE FROM throttle WHERE blocked_until < ? AND updated_at < ?')
+    ->execute([time(), time() - THROTTLE_FORGET_AFTER]);
+
 // Dernière connexion réussie précédente (hors session en cours)
 $stmt = db()->prepare("SELECT created_at, ip FROM logs WHERE type = 'login_ok' AND message = ? ORDER BY id DESC LIMIT 1 OFFSET 1");
 $stmt->execute(['Connexion réussie : ' . $admin['email']]);

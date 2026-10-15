@@ -42,7 +42,7 @@ Ce plan est pensé pour vous, étudiant en BTS SIO 1re année. Toutes les action
 |---|---|---|---|---|---|---|
 | RGPD-1 | Informer le visiteur, sous le formulaire de contact, de l'usage de ses données (L8) | P0 | simple | `contact.php`, `style.css`, `tests/http_test.php` | Sous le bouton « Envoyer », un court texte indique : à quoi servent les données, qui les reçoit, combien de temps elles sont gardées, comment demander leur suppression ; un test automatique vérifie sa présence | ✅ 15/10/2026 |
 | RGPD-2 | Créer une page « Mentions légales et confidentialité » reliée au pied de page (L9) | P1 | simple | `mentions-legales.php` (nouveau), `app/site.php`, `tests/http_test.php` | Le lien apparaît dans le pied de page des 3 pages ; la page utilise `site_header()` / `site_footer()` ; elle précise que l'entreprise est fictive (TP) ; un test vérifie le code 200 | ✅ 15/10/2026 |
-| RGPD-3 | Supprimer automatiquement les journaux de plus de 12 mois (L10) | P1 | moyen | `admin/index.php`, `contact.php` (texte RGPD-1), `tests/http_test.php` | À l'ouverture du tableau de bord, une entrée datée de 13 mois disparaît, une entrée de 11 mois reste ; la suppression est journalisée ; le texte de RGPD-1 annonce « 12 mois » | ⬜ |
+| RGPD-3 | Supprimer automatiquement les journaux de plus de 12 mois (L10) | P1 | moyen | `admin/index.php`, `contact.php` (texte RGPD-1), `tests/http_test.php` | À l'ouverture du tableau de bord, une entrée datée de 13 mois disparaît, une entrée de 11 mois reste ; la suppression est journalisée ; le texte de RGPD-1 annonce « 12 mois » | ✅ 15/10/2026 |
 | RGPD-4 | Proposer d'exclure les messages de contact de la sauvegarde JSON (L11) | P2 | simple | `admin/maintenance.php`, `tests/http_test.php` | Case « Exclure les messages de contact » : cochée, le fichier téléchargé ne contient aucune entrée de type `contact` | ⬜ |
 
 **Termes** — *RGPD* (Règlement général sur la protection des données) : loi européenne qui oblige à informer les personnes quand on collecte leurs données (nom, e-mail…) et à ne pas les garder indéfiniment. *Durée de conservation* : temps maximal pendant lequel une donnée personnelle est gardée. Sous WAMP il n'y a pas de tâche planifiée : la suppression est donc lancée quand l'administrateur ouvre le tableau de bord.
@@ -128,7 +128,7 @@ Traitez les jalons dans l'ordre. À l'intérieur d'un jalon, une tâche à la fo
 |---|---|---|---|
 | **0 — Avant la publication sur GitHub** | Ne publier aucun secret | SEC-1 ✅ | P0 |
 | **1 — Urgent** | Supprimer le risque de la clé exposée, respecter l'obligation d'information | SEC-2, RGPD-1 ✅ | P0 |
-| **2 — Sécurité et conformité** | Renforcer le site public et la gestion des données personnelles | SEC-3 ✅, RGPD-2 ✅, RGPD-3, EXPL-2 | P1 |
+| **2 — Sécurité et conformité** | Renforcer le site public et la gestion des données personnelles | SEC-3 ✅, RGPD-2 ✅, RGPD-3 ✅, EXPL-2 | P1 |
 | **3 — Fiabilité** | Pouvoir restaurer la base, fiabiliser le code et les tests, documentation juste | EXPL-1, DATA-1, CODE-1, CODE-2, DOC-1 | P1 |
 | **4 — Améliorations rapides** | Petits gains de confort, d'accessibilité et de propreté | DATA-2, CODE-3, CODE-4, FRONT-2, FRONT-3, FRONT-4, FRONT-5, EXPL-3, EXPL-4, RGPD-4 | P2 |
 | **5 — Pour aller plus loin** | Tâches plus longues, si le temps le permet | FRONT-1, SEC-4, SEC-5, SEC-6 | P2 |
