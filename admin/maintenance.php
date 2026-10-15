@@ -156,6 +156,17 @@ if (is_post()) {
         redirect('maintenance.php?tab=tmp');
     }
 
+    if ($action === 'purge_smtp_log') {
+        if (empty($_POST['confirm'])) {
+            flash('error', 'Cochez la case de confirmation pour vider le log SMTP.');
+        } else {
+            @unlink(MAIL_DEBUG_LOG);
+            log_event('event', 'Log de débogage SMTP vidé par ' . $admin['email']);
+            flash('success', 'Log de débogage SMTP vidé.');
+        }
+        redirect('maintenance.php?tab=tmp');
+    }
+
     if ($action === 'backup') {
         $backup = [
             'application' => 'InfoLeader',
@@ -184,7 +195,7 @@ if (is_post()) {
 
 /* ---------- Affichage ---------- */
 
-$tabs = ['system' => 'Système', 'logs' => 'Journaux', 'backup' => 'Sauvegarde', 'tmp' => 'Purger storage/tmp'];
+$tabs = ['system' => 'Système', 'logs' => 'Journaux', 'backup' => 'Sauvegarde', 'tmp' => 'Fichiers temporaires'];
 $tab = isset($tabs[$_GET['tab'] ?? '']) ? $_GET['tab'] : 'system';
 
 admin_header('Maintenance', $admin, 'État du système, journaux, sauvegarde et fichiers temporaires.');
@@ -350,6 +361,20 @@ admin_header('Maintenance', $admin, 'État du système, journaux, sauvegarde et 
                 <label><input type="checkbox" name="confirm" value="1" required> Je confirme la suppression des fichiers temporaires</label>
             </div>
             <button type="submit" class="btn btn--danger"<?= $count === 0 ? ' disabled' : '' ?>>Purger storage/tmp</button>
+        </form>
+    </section>
+
+    <?php $smtpLog = is_file(MAIL_DEBUG_LOG) ? filesize(MAIL_DEBUG_LOG) : 0; ?>
+    <section class="panel">
+        <h2>Log de débogage SMTP : <?= $smtpLog ? e(human_size($smtpLog)) : 'vide' ?></h2>
+        <p class="muted">storage/logs/smtp-debug.log grossit à chaque envoi tant que le débogage est activé (module E-mails).</p>
+        <form action="maintenance.php" method="post" data-confirm="Vider le log de débogage SMTP ?">
+            <?= csrf_field() ?>
+            <input type="hidden" name="action" value="purge_smtp_log">
+            <div class="form-check">
+                <label><input type="checkbox" name="confirm" value="1" required> Je confirme la suppression du log SMTP</label>
+            </div>
+            <button type="submit" class="btn btn--danger"<?= $smtpLog === 0 ? ' disabled' : '' ?>>Vider le log SMTP</button>
         </form>
     </section>
 <?php endif; ?>

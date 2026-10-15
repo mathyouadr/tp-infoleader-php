@@ -463,7 +463,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 ### Stockage et exploitation
 
 12. ✅ ~~Sauvegarde non restaurable.~~ Corrigé le 15/10/2026 (tâche EXPL-1) : `README.md` (section « Sauvegarde et restauration de la base ») décrit une sauvegarde `mysqldump` restaurable et sa vérification dans une base vide ; `*.sql` est ignoré par Git (sauf `app/schema.sql`). L'export JSON reste un export de consultation.
-13. 🟡 **Log SMTP sans limite de taille** : `mail_debug_writer()` ajoute en fin de fichier (`FILE_APPEND`) et Maintenance ne propose pas de le vider.
+13. ✅ ~~Log SMTP sans limite de taille.~~ Corrigé le 15/10/2026 (tâche EXPL-4) : l'onglet « Fichiers temporaires » de Maintenance permet de vider `storage/logs/smtp-debug.log` (avec confirmation).
 14. ✅ ~~`products.json` reste accessible.~~ Corrigé le 15/10/2026 (tâche DATA-2) : le `.htaccess` racine refuse `products.json` (403).
 15. 🟡 **Mode PHP `mail()` non fonctionnel sous WAMP** : il est enregistrable mais n'envoie rien.
 16. ✅ ~~Message de contact tronqué dans les journaux.~~ Corrigé le 15/10/2026 (tâche DATA-1) : `log_event()` (`app/bootstrap.php`) garde désormais 6000 caractères, assez pour un message complet (5000) avec le nom et l'e-mail.
