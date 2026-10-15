@@ -471,7 +471,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 
 ### Qualité du code et tests
 
-17. 🟠 **Caractère invisible dans `contact.php`.** La ligne qui nettoie le nom pour le sujet de l'e-mail contient un retour chariot (CR) brut, et le corps de l'e-mail est écrit avec de vrais sauts de ligne dans le code (`file contact.php` → « with CR, LF line terminators »). Un éditeur qui normalise les fins de ligne peut modifier ce comportement sans que personne ne le voie. Ce fichier (hérité du TP1) suit aussi un style différent du reste (`array()`, guillemets doubles, `echo`).
+17. ✅ ~~Caractère invisible dans `contact.php`.~~ Corrigé le 15/10/2026 (tâche CODE-1) : `contact.php` n'a plus de caractère de contrôle brut (`\r`, `\n` échappés) et suit le style du reste du projet (`is_post()`, `[]`, `<?=`, guillemets simples).
 18. 🟠 **Tests dépendants de WAMP, message peu clair.** Si Apache ou MySQL est arrêté, `php tests/http_test.php` affiche seulement « Erreur interne. Consultez le journal PHP. » (constaté le 15/10/2026).
 19. 🟡 **Les tests écrivent dans la vraie base** `infoleader` : ils restaurent le compte, la configuration e-mail et les messages de contact, mais laissent des entrées de test dans `logs` (échecs, blocages, événements).
 20. 🟡 **Parties non testées automatiquement** : boîtes de confirmation JavaScript, filtre de recherche, menu mobile (`ETAT-DU-PROJET.md`, « Reste à faire »).

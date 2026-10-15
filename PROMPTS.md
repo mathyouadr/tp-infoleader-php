@@ -133,6 +133,7 @@ Commence par la première tâche P0.
 | RGPD-3 | Purge automatique dans `admin/index.php` (journaux > 12 mois, compteurs `throttle` périmés, suppression journalisée) ; textes RGPD mis à jour ; retour chariot brut de `contact.php` remplacé par `\r` (il avait été converti par erreur lors de l'édition) ; 1 vérification ajoutée | `php tests/http_test.php` → 94 réussis, 0 échec (entrée de 13 mois supprimée, 11 mois conservée) |
 | EXPL-1 | Procédure `mysqldump` / `mysql -e source` dans `README.md`, testée pour de vrai ; `*.sql` ajouté à `.gitignore` | Export de 67 Ko, restauré dans `infoleader_restore` : 6 tables, 6 articles, 1 admin ; base temporaire et fichier supprimés ensuite |
 | DATA-1 | Limite de `log_event()` portée de 2000 à 6000 caractères ; 1 vérification ajoutée | `php tests/http_test.php` → 95 réussis, 0 échec (message de 4000 caractères retrouvé en entier) |
+| CODE-1 | Partie PHP de `contact.php` réécrite dans le style du projet ; sauts de ligne bruts remplacés par `\n` | `file contact.php` sans « with CR » ; sujet et corps de l'e-mail comparés à l'ancienne version : identiques ; `php tests/http_test.php` → 95 réussis, 0 échec |
 
 *(Compléter ce tableau à chaque nouvelle tâche validée.)*
 
