@@ -2035,3 +2035,262 @@ img {
         min-height: auto;
     }
 }
+
+/* ============================================
+   18. Thème « nuit violette » pour l'administration (fork TP 2ter)
+   <body class="admin site"> : reprend la section 17, puis habille
+   les composants propres à l'admin (panneaux, tableaux, badges...).
+   ============================================ */
+.admin.site .page-header__inner {
+    padding-top: 3.5rem;
+    padding-bottom: 2.5rem;
+}
+
+.admin.site .page-header h1 {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+}
+
+.site .navbar__tag {
+    color: var(--lavender);
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.65rem;
+}
+
+.site .navbar__logout button {
+    color: var(--ink-soft);
+    border-color: var(--hairline);
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+}
+
+.site .navbar__logout button:hover {
+    color: #ffb4b4;
+    border-color: #ffb4b4;
+}
+
+/* Textes secondaires */
+.site .muted,
+.site .rules,
+.site .module-card p,
+.site .item__price {
+    color: var(--ink-soft);
+}
+
+/* Panneaux et cartes de modules */
+.site .panel,
+.site .module-card {
+    background-color: var(--night-2);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+}
+
+.site .panel h2 {
+    font-size: 1.6rem;
+}
+
+.site .module-card {
+    transition: border-color var(--transition), background-color var(--transition);
+}
+
+.site .module-card:hover,
+.site .module-card:focus-visible {
+    border-color: var(--lavender);
+    background-color: #141022;
+}
+
+.site .module-card h3 {
+    font-family: var(--font-impact);
+    font-style: italic;
+    text-transform: uppercase;
+    font-size: 1.35rem;
+    color: var(--ink);
+}
+
+.site .module-card:hover h3 {
+    color: var(--lavender);
+}
+
+/* Liste des articles */
+.site .item {
+    border-bottom-color: var(--hairline);
+}
+
+.site .item.is-editing {
+    background-color: rgba(144, 137, 211, 0.12);
+}
+
+.site .item__thumb {
+    background-color: var(--night);
+}
+
+/* Boutons de l'admin */
+.site .btn {
+    font-family: var(--font-impact);
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--night);
+    background-color: var(--lavender);
+    border-radius: 999px;
+}
+
+.site .btn:hover {
+    color: var(--night);
+    background-color: #fff;
+}
+
+.site .btn--light {
+    color: var(--ink);
+    background-color: transparent;
+    box-shadow: inset 0 0 0 1px var(--hairline);
+}
+
+.site .btn--light:hover {
+    color: var(--night);
+    background-color: var(--lavender);
+}
+
+.site .btn--danger {
+    color: #fff;
+    background-color: #a3263a;
+}
+
+.site .btn--danger:hover {
+    color: #fff;
+    background-color: #c73350;
+}
+
+/* Champs : listes déroulantes, fichiers, cases */
+.site .form-control select {
+    color: var(--ink);
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+}
+
+.site .form-control select option {
+    color: var(--ink);
+    background-color: var(--night-2);
+}
+
+.site .form-control select:focus {
+    border-color: var(--lavender);
+    box-shadow: 0 0 0 3px rgba(144, 137, 211, 0.25);
+}
+
+.site .form-check label {
+    color: var(--ink-soft);
+}
+
+.site input[type="checkbox"] {
+    accent-color: var(--lavender);
+}
+
+.site .form-control input[type="file"] {
+    color: var(--ink-soft);
+}
+
+.site .contact-form h3 {
+    border-top-color: var(--hairline);
+    color: var(--ink);
+}
+
+.site .form-link a {
+    color: var(--lavender);
+}
+
+/* Onglets de Maintenance */
+.site .tabs {
+    border-bottom-color: var(--hairline);
+}
+
+.site .tabs a {
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+}
+
+.site .tabs a:hover {
+    color: var(--ink);
+}
+
+.site .tabs a.is-active {
+    color: var(--ink);
+    border-bottom-color: var(--lavender);
+}
+
+/* Tableaux */
+.site .data-table th,
+.site .data-table td {
+    border-bottom-color: var(--hairline);
+}
+
+.site .data-table th {
+    color: var(--ink-soft);
+    background-color: rgba(255, 255, 255, 0.04);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+}
+
+.site .data-table tbody tr:hover td {
+    background-color: rgba(144, 137, 211, 0.06);
+}
+
+/* Badges d'état */
+.site .badge {
+    color: var(--ink);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+}
+
+.site .badge--ok {
+    color: #9ee6be;
+    background-color: rgba(8, 82, 41, 0.45);
+}
+
+.site .badge--ko {
+    color: #ffb4b4;
+    background-color: rgba(102, 29, 29, 0.55);
+}
+
+.site .badge--warn {
+    color: #ffd59a;
+    background-color: rgba(120, 72, 0, 0.45);
+}
+
+/* Pied de page de l'admin : une ligne, filet fin */
+.admin.site .footer {
+    background-color: var(--night);
+    border-top: 1px solid var(--hairline);
+}
+
+/* Badge placé dans un titre : garde sa police normale */
+.site h2 .badge {
+    font-family: var(--font);
+    font-style: normal;
+    text-transform: none;
+    letter-spacing: 0;
+    vertical-align: middle;
+}
+
+/* Bouton natif « Choisir un fichier » */
+.site input[type="file"]::file-selector-button {
+    font: inherit;
+    color: var(--ink);
+    background-color: transparent;
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    padding: 0.35rem 0.9rem;
+    margin-right: 0.8rem;
+    cursor: pointer;
+}
+
+.site input[type="file"]::file-selector-button:hover {
+    border-color: var(--lavender);
+}

@@ -25,7 +25,7 @@ function admin_header(string $title, ?array $admin = null, string $subtitle = ''
     <title>InfoLeader - <?= e($title) ?></title>
     <link rel="stylesheet" href="../style.css?v=<?= filemtime(ROOT . '/style.css') ?>">
 </head>
-<body class="admin">
+<body class="admin site">
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
     <!-- ====== Barre de navigation de l'administration ====== -->
