@@ -10,8 +10,7 @@
  */
 function admin_header(string $title, ?array $admin = null, string $subtitle = ''): void
 {
-    // Politique de sécurité stricte : aucun script ni style en ligne dans l'admin
-    header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; frame-ancestors 'none'; form-action 'self'; base-uri 'none'");
+    // La politique CSP est envoyée pour toutes les pages par app/bootstrap.php
     $current = basename($_SERVER['SCRIPT_NAME']);
     $links = $admin
         ? ['index.php' => 'Tableau de bord', 'products.php' => 'Articles', 'email.php' => 'E-mails', 'password.php' => 'Mot de passe', 'user.php' => 'Utilisateur', 'maintenance.php' => 'Maintenance']

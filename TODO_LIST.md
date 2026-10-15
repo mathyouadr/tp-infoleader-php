@@ -27,7 +27,7 @@ Ce plan est pensé pour vous, étudiant en BTS SIO 1re année. Toutes les action
 |---|---|---|---|---|---|---|
 | SEC-1 | Vérifier qu'aucun secret n'est versionné avant de publier le dépôt sur GitHub | P0 | simple | `.gitignore`, `storage/config.php` | `git ls-files storage` ne liste que `storage/.htaccess`, `storage/logs/.gitkeep`, `storage/tmp/.gitkeep` ; `git log --all -- storage/config.php` ne renvoie rien | ✅ 15/10/2026 |
 | SEC-2 | Régénérer la Secret Key Mailjet, partagée par erreur dans une conversation (L1) | P0 | simple | aucun (site Mailjet + Admin → E-mails) | L'ancienne clé est supprimée dans Mailjet ; la nouvelle est saisie dans Admin → E-mails ; « Enregistrer et envoyer un test » → e-mail reçu | ⬜ |
-| SEC-3 | Ajouter une politique CSP au site public, comme dans l'admin (L2) | P1 | simple | `app/site.php`, `tests/http_test.php` | F12 → Réseau → l'en-tête `Content-Security-Policy` est présent sur Accueil, Produits et Contact ; le menu mobile et la recherche fonctionnent ; la console n'affiche aucune erreur ; un test automatique le vérifie | ⬜ |
+| SEC-3 | Ajouter une politique CSP au site public, comme dans l'admin (L2) | P1 | simple | `app/bootstrap.php`, `app/layout.php`, `tests/http_test.php` | F12 → Réseau → l'en-tête `Content-Security-Policy` est présent sur Accueil, Produits et Contact ; le menu mobile et la recherche fonctionnent ; la console n'affiche aucune erreur ; un test automatique le vérifie | ✅ 15/10/2026 |
 | SEC-4 | Rendre le temps de réponse de la connexion identique, que l'adresse existe ou non (L5) | P2 | moyen | `admin/login.php` | `password_verify()` est appelé même pour une adresse inconnue (avec un hachage factice) ; les tests restent verts | ⬜ |
 | SEC-5 | Fermer les autres sessions après un changement ou une réinitialisation du mot de passe (L6) | P2 | complexe | `app/schema.sql`, `app/install.php`, `app/bootstrap.php`, `admin/password.php`, `admin/reset.php` | Connecté dans deux navigateurs, vous changez le mot de passe dans le premier : au clic suivant, le second est renvoyé vers la page de connexion | ⬜ |
 | SEC-6 | Ajouter un verrou à la limitation des tentatives (L4) | P2 | complexe | `app/bootstrap.php` | `throttle_fail()` lit et écrit dans une transaction avec `SELECT … FOR UPDATE` ; le commentaire `ponytail:` est retiré ; les tests restent verts | ⬜ |
@@ -128,7 +128,7 @@ Traitez les jalons dans l'ordre. À l'intérieur d'un jalon, une tâche à la fo
 |---|---|---|---|
 | **0 — Avant la publication sur GitHub** | Ne publier aucun secret | SEC-1 ✅ | P0 |
 | **1 — Urgent** | Supprimer le risque de la clé exposée, respecter l'obligation d'information | SEC-2, RGPD-1 ✅ | P0 |
-| **2 — Sécurité et conformité** | Renforcer le site public et la gestion des données personnelles | SEC-3, RGPD-2, RGPD-3, EXPL-2 | P1 |
+| **2 — Sécurité et conformité** | Renforcer le site public et la gestion des données personnelles | SEC-3 ✅, RGPD-2, RGPD-3, EXPL-2 | P1 |
 | **3 — Fiabilité** | Pouvoir restaurer la base, fiabiliser le code et les tests, documentation juste | EXPL-1, DATA-1, CODE-1, CODE-2, DOC-1 | P1 |
 | **4 — Améliorations rapides** | Petits gains de confort, d'accessibilité et de propreté | DATA-2, CODE-3, CODE-4, FRONT-2, FRONT-3, FRONT-4, FRONT-5, EXPL-3, EXPL-4, RGPD-4 | P2 |
 | **5 — Pour aller plus loin** | Tâches plus longues, si le temps le permet | FRONT-1, SEC-4, SEC-5, SEC-6 | P2 |

@@ -102,6 +102,8 @@ if (PHP_SAPI !== 'cli' && session_status() === PHP_SESSION_NONE) {
     header('X-Content-Type-Options: nosniff');
     header('X-Frame-Options: DENY');
     header('Referrer-Policy: same-origin');
+    // Politique de sécurité stricte (site public + admin) : aucun script ni style en ligne
+    header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; frame-ancestors 'none'; form-action 'self'; base-uri 'none'");
 }
 
 /* ---------- CSRF : vérifié automatiquement sur tout POST ---------- */

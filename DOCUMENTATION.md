@@ -64,7 +64,7 @@ Il n'y a **qu'un seul compte administrateur** et aucun compte visiteur (`app/ins
 | Extensions PHP | `pdo_mysql`, `openssl`, `mbstring`, `json` (contrôlées), `fileinfo` (uploads), `curl` (tests) | `admin/maintenance.php`, `app/catalog.php`, `tests/http_test.php` |
 | Front | HTML5, un seul CSS (`style.css`), un seul JS vanilla (`script.js`) | `app/site.php`, `app/layout.php` |
 | Police | Pile système sans-serif (`Segoe UI Variable`, `system-ui`) | `style.css` (`--font`) |
-| Tests | Script PHP + cURL contre Apache : 87 vérifications `check()` | `tests/http_test.php` |
+| Tests | Script PHP + cURL contre Apache : 91 vérifications `check()` | `tests/http_test.php` |
 
 Aucune ressource externe (CDN, police web, script tiers) n'est chargée : aucune URL externe dans `style.css`, `app/site.php` ou `app/layout.php`.
 
@@ -86,7 +86,7 @@ infoleader/
 ├── app/                   Code partagé — accès web refusé (app/.htaccess)
 │   ├── bootstrap.php      Config, BDD, session, CSRF, flash, journaux, auth, anti force brute,
 │   │                      règles de mot de passe, réglages, chiffrement
-│   ├── layout.php         En-tête / pied de page de l'admin + CSP
+│   ├── layout.php         En-tête / pied de page de l'admin
 │   ├── site.php           En-tête / pied de page du site public + carte produit
 │   ├── catalog.php        Lecture des articles, format des prix, envoi/suppression d'images
 │   ├── mailer.php         Configuration et envoi des e-mails, log SMTP masqué
@@ -305,7 +305,7 @@ Un jeton de 64 caractères hexadécimaux est stocké en session (`csrf_token()`)
 | Protection | Où |
 |---|---|
 | En-têtes `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: same-origin` | `app/bootstrap.php`, toutes les pages |
-| CSP stricte `default-src 'self'` (pas de script ni de style en ligne) | `app/layout.php`, **admin seulement** |
+| CSP stricte `default-src 'self'` (pas de script ni de style en ligne) | `app/bootstrap.php`, toutes les pages (site public depuis le 15/10/2026, tâche SEC-3) |
 | Échappement de toute sortie avec `e()` (`htmlspecialchars`, `ENT_QUOTES`, UTF-8) | toutes les vues |
 | Requêtes préparées, `ATTR_EMULATE_PREPARES = false` | `app/bootstrap.php` |
 | Uploads : type réel lu avec `finfo` + `getimagesize`, JPEG/PNG/WebP, 2 Mo max, nom aléatoire | `save_uploaded_image()`, `app/catalog.php` |
@@ -445,7 +445,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 ### Sécurité
 
 1. 🔴 **Clé secrète Mailjet exposée.** `ETAT-DU-PROJET.md` indique qu'elle « a été partagée dans une conversation » et qu'elle est à régénérer. Tant qu'elle est valide, un tiers peut envoyer des e-mails au nom du compte.
-2. 🟠 **Pas de CSP sur le site public.** `app/layout.php` envoie une `Content-Security-Policy`, `app/site.php` non. Le site public ne contient pourtant aucun script en ligne : l'ajout ne casserait rien. La CSP limite les dégâts d'une éventuelle faille XSS.
+2. ✅ ~~Pas de CSP sur le site public.~~ Corrigé le 15/10/2026 (tâche SEC-3) : l'en-tête `Content-Security-Policy` est désormais envoyé par `app/bootstrap.php` pour toutes les pages, publiques et admin.
 3. 🟠 **Compte MySQL `root` sans mot de passe** par défaut sous WAMP. L'installeur le suppose (`--root-pass` vide). Tout programme local peut alors lire ou effacer la base.
 4. 🟡 **Limitation de débit sans verrou.** Deux requêtes strictement simultanées peuvent passer pendant un délai (commentaire `ponytail:` dans `throttle_fail()`, `app/bootstrap.php`).
 5. 🟡 **Énumération possible par le temps de réponse.** Dans `admin/login.php`, `password_verify()` n'est appelé que si l'adresse existe. Une adresse inconnue répond donc plus vite. Le message, lui, est identique.

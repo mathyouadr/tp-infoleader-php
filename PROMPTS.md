@@ -128,6 +128,7 @@ Commence par la première tâche P0.
 |---|---|---|
 | SEC-1 | Contrôle des fichiers suivis par Git et de tout l'historique | `git ls-files storage` → 3 fichiers de protection seulement ; `git log --all -- storage/config.php` → vide ; dépôt `tp-infoleader-php` public, sans secret |
 | RGPD-1 | Mention d'information sous le formulaire de contact (`contact.php`, classe `.form-notice` dans `style.css`) + vérification automatique dans `tests/http_test.php` | `php tests/http_test.php` → 87 réussis, 0 échec ; texte vérifié dans le navigateur sous le bouton « Envoyer le message » |
+| SEC-3 | En-tête CSP déplacé de `app/layout.php` vers `app/bootstrap.php` : une seule ligne protège toutes les pages ; 4 vérifications ajoutées dans `tests/http_test.php` | `php tests/http_test.php` → 91 réussis, 0 échec ; dans le navigateur, recherche produits et menu mobile fonctionnent, console sans erreur |
 
 *(Compléter ce tableau à chaque nouvelle tâche validée.)*
 
@@ -142,3 +143,4 @@ Commence par la première tâche P0.
 | « WAMP est démarré. Lance les tests, puis commit et push des fichiers sur tp-infoleader-php si tout est vert. » | L'agent a constaté que les services WAMP étaient encore arrêtés et n'a rien publié tant que les tests n'étaient pas lancés. |
 | Demande d'ajout d'un second serveur SMTP pour les TP (identifiants **volontairement non reproduits ici** : ce sont des secrets) | Aucun code à modifier : le module Admin → E-mails accepte n'importe quel serveur SMTP (un seul actif à la fois). L'agent a refusé de saisir lui-même le mot de passe et a conseillé de le faire changer, puisqu'il a été écrit dans la conversation. |
 | « WAMP est lancé, icône verte. Lance les tests, puis commit et push sur tp-infoleader-php si tout est vert. » | Tests : 87 réussis, 0 échec. Rendu vérifié dans le navigateur. Commit puis push sur le dépôt public. |
+| « Passe à la tâche SEC-3 : explique d'abord ce que tu vas modifier, puis fais-la et dis-moi comment la tester. » | Explication donnée avant la modification (déplacer la CSP dans `app/bootstrap.php`), contrôle préalable de l'absence de code en ligne, puis modification, tests (91/91) et procédure de test dans le navigateur. |

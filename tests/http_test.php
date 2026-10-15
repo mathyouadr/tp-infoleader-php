@@ -246,6 +246,12 @@ try {
     [$code, $body] = http('admin/maintenance.php?tab=system');
     check($code === 200 && str_contains($body, 'État global') && str_contains($body, 'pdo_mysql'), 'Système : état global affiché');
 
+    // Politique CSP envoyée sur le site public et dans l'admin (TODO_LIST.md, SEC-3)
+    foreach (['index.php', 'products.php', 'contact.php', 'admin/login.php'] as $page) {
+        [, , , $headers] = http($page);
+        check(str_contains($headers, "Content-Security-Policy: default-src 'self'"), "CSP envoyée sur $page");
+    }
+
     // Contact → information RGPD, journal, puis filtres
     [, $body] = http('contact.php');
     check(str_contains($body, 'servent uniquement à répondre') && str_contains($body, 'faire supprimer'), 'Contact : information RGPD affichée sous le formulaire');

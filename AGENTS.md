@@ -16,7 +16,7 @@ Showcase site for an IT hardware company (TP1) + secured admin panel (TP2). Fren
 ```bash
 php composer.phar install                           # PHPMailer
 php app/install.php --email=admin@example.com       # DB + user + schema + seed + first admin (prints password once)
-php tests/http_test.php                             # end-to-end tests against Apache (87 checks, must stay green)
+php tests/http_test.php                             # end-to-end tests against Apache (91 checks, must stay green)
 ```
 
 `app/install.php` is CLI-only and re-runnable: reuses `storage/config.php`, applies `app/schema.sql` (`CREATE TABLE IF NOT EXISTS`), seeds `products` from `products.json` only if the table is empty, creates an admin only if none exists.
@@ -41,7 +41,7 @@ php tests/http_test.php                             # end-to-end tests against A
 - **Rate limiting** (`throttle_check()` / `throttle_fail()` / `throttle_reset()`, table `throttle`, per IP + scope, survives reloads): 3 s after 1st failure, then 6, 12, 24 s (max 60); 5th failure → IP blocked 15 min, logged as `blocked`. Scopes: `login`, `forgot`, `reset`, `password` (current-password checks in Password & User modules), `contact`. For `forgot` and `contact`, **every** request counts. Known limit: no row lock (`ponytail:` comment).
 - **Reset codes**: 8 digits, `random_int`, stored hashed, valid 5 min, single use, invalidated after 5 wrong attempts. Same response whether the account exists or not (no enumeration).
 - **Secrets**: `storage/config.php` (DB credentials + `app_key`) is generated, git-ignored, never published. The SMTP secret is encrypted with AES-256-GCM (`encrypt_secret()` / `decrypt_secret()`), never re-displayed in forms, never logged. The SMTP debug log masks AUTH and DATA lines (`mail_debug_writer()`).
-- **Admin CSP**: `default-src 'self'` → no inline `<script>`, no `style=""`, no `onclick` in admin pages.
+- **CSP** (sent for every page by `app/bootstrap.php`): `default-src 'self'` → no inline `<script>`, no `style=""`, no `onclick`, on public and admin pages.
 - **Uploads**: only via `save_uploaded_image()` — real MIME checked with `finfo` + `getimagesize`, JPEG/PNG/WebP, ≤ 2 MB, random 24-hex filename in `assets/products/uploads/` (its `.htaccess` denies scripts). `delete_uploaded_image()` only deletes files matching that pattern (never the original TP1 images).
 - **Backups** (`strip_secrets()`): never export passwords, hashes, SMTP user/secret, tokens or keys.
 - **Purge of `storage/tmp`**: deletes only inside the resolved real path, skips links. Never widen it.
