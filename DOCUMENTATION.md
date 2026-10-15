@@ -358,7 +358,6 @@ Un jeton de 64 caractères hexadécimaux est stocké en session (`csrf_token()`)
 | Fonction | Rôle |
 |---|---|
 | `initMobileMenu()` | ouvre/ferme le menu sous 640 px, met à jour `aria-expanded` |
-| `initSmoothScroll()` | défilement fluide vers les ancres `#…` (aucune page n'a de tel lien aujourd'hui) |
 | `initProductFilter()` | filtre les cartes par nom et description, délai de 150 ms, compteur, message « aucun résultat » |
 | `initAutoHide()` | masque les messages flash après 5,5 s |
 | `initWaitButton()` | compte à rebours sur le bouton après un échec |
@@ -480,7 +479,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 ### Front-end
 
 22. 🟡 **Pas de thème sombre** (aucune règle `prefers-color-scheme`).
-23. 🟡 **Défilement fluide JavaScript** : `initSmoothScroll()` force `behavior: "smooth"` même si l'utilisateur a demandé moins d'animations, et aucune page n'a de lien `#…` qui l'utilise.
+23. ✅ ~~Défilement fluide JavaScript.~~ Corrigé le 15/10/2026 (tâche FRONT-2) : `initSmoothScroll()` est supprimée de `script.js` ; le défilement des ancres passe par `scroll-behavior: smooth` en CSS, désactivé par `prefers-reduced-motion`.
 24. 🟡 **Pas de page 404 personnalisée** ni de lien d'évitement « Aller au contenu » pour la navigation au clavier.
 25. 🟡 **Images du TP1 provisoires** (dégradé + texte, `ETAT-DU-PROJET.md`).
 

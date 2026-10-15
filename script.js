@@ -1,7 +1,7 @@
 // ============================================================
 // script.js — Interactions vanilla JS (aucune dépendance)
 // Chargé via une balise <script> en fin de <body> sur chaque page.
-// Menu mobile, défilement fluide, filtre produits, messages, confirmations.
+// Menu mobile, filtre produits, messages, confirmations.
 // ============================================================
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -35,34 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* --------------------------------------------------------
-     * 2) Défilement fluide vers les ancres
-     * Ex. : <a href="#contact"> → scrollIntoView(pourcent)
-     * La propriété CSS scroll-behavior: smooth sert de base.
-     * ------------------------------------------------------ */
-    function initSmoothScroll() {
-        // Conversion en tableau pour compatibilité cross-browser
-        var anchors = Array.prototype.slice.call(
-            document.querySelectorAll('a[href^="#"]')
-        );
-
-        anchors.forEach(function (anchor) {
-            anchor.addEventListener("click", function (event) {
-                // Cible visée par l'ancre (ex. : #contact)
-                var id = anchor.getAttribute("href").slice(1);
-                var target = document.getElementById(id);
-
-                if (!target) {
-                    return;
-                }
-
-                event.preventDefault();
-                target.scrollIntoView({ behavior: "smooth", block: "start" });
-            });
-        });
-    }
-
-    /* --------------------------------------------------------
-     * 3) Filtre de produits en temps réel (optimisé)
+     * 2) Filtre de produits en temps réel (optimisé)
      * Optimisations :
      *   - les données (nom, description) sont lues une seule fois
      *   - debounce : les manipulations du DOM sont espacées
@@ -127,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* --------------------------------------------------------
-     * 4) Messages temporaires : disparaissent après 5,5 s
+     * 3) Messages temporaires : disparaissent après 5,5 s
      * ------------------------------------------------------ */
     function initAutoHide() {
         var alerts = document.querySelectorAll(".alert[data-autohide]");
@@ -142,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* --------------------------------------------------------
-     * 5) Compte à rebours sur le bouton après un échec
+     * 4) Compte à rebours sur le bouton après un échec
      * (confort uniquement : la vraie limite est côté serveur)
      * ------------------------------------------------------ */
     function initWaitButton() {
@@ -169,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* --------------------------------------------------------
-     * 6) Confirmation avant les actions destructrices
+     * 5) Confirmation avant les actions destructrices
      * <form data-confirm="Message ?">
      * ------------------------------------------------------ */
     function initConfirm() {
@@ -190,6 +163,5 @@ document.addEventListener("DOMContentLoaded", function () {
     initWaitButton();
     initConfirm();
     initMobileMenu();
-    initSmoothScroll();
     initProductFilter();
 });
