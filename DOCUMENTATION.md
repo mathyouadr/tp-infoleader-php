@@ -472,7 +472,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 ### Qualité du code et tests
 
 17. ✅ ~~Caractère invisible dans `contact.php`.~~ Corrigé le 15/10/2026 (tâche CODE-1) : `contact.php` n'a plus de caractère de contrôle brut (`\r`, `\n` échappés) et suit le style du reste du projet (`is_post()`, `[]`, `<?=`, guillemets simples).
-18. 🟠 **Tests dépendants de WAMP, message peu clair.** Si Apache ou MySQL est arrêté, `php tests/http_test.php` affiche seulement « Erreur interne. Consultez le journal PHP. » (constaté le 15/10/2026).
+18. ✅ ~~Tests dépendants de WAMP, message peu clair.~~ Corrigé le 15/10/2026 (tâche CODE-2) : `tests/http_test.php` vérifie d'abord MySQL et Apache ; s'ils ne répondent pas, il affiche « Apache ou MySQL ne répond pas : démarrez WAMP (icône verte) » et s'arrête avec le code 1.
 19. 🟡 **Les tests écrivent dans la vraie base** `infoleader` : ils restaurent le compte, la configuration e-mail et les messages de contact, mais laissent des entrées de test dans `logs` (échecs, blocages, événements).
 20. 🟡 **Parties non testées automatiquement** : boîtes de confirmation JavaScript, filtre de recherche, menu mobile (`ETAT-DU-PROJET.md`, « Reste à faire »).
 21. 🟡 **Documentation existante en partie obsolète.** `README.md` dit encore que « le formulaire de contact n'envoie toujours pas d'e-mail » et annonce 84 vérifications ; `ETAT-DU-PROJET.md` en annonce 86. Le commentaire d'en-tête d'`admin/index.php` parle de « 4 modules » alors qu'il y en a 5.

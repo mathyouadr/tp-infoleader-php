@@ -16,6 +16,21 @@ const BASE = 'http://127.0.0.1/infoleader/';
 const TEST_PASSWORD = 'Test-Password-2026-Abcdef!';
 const NEW_PASSWORD = 'Nouveau-Mot2Passe-Tres-Long!';
 
+// WAMP démarré ? Sinon, message clair au lieu de « Erreur interne »
+try {
+    db()->query('SELECT 1');
+    $ch = curl_init(BASE);
+    curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_NOBODY => true, CURLOPT_CONNECTTIMEOUT => 3]);
+    $up = curl_exec($ch) !== false;
+    curl_close($ch);
+} catch (PDOException) {
+    $up = false;
+}
+if (!$up) {
+    fwrite(STDERR, "Apache ou MySQL ne répond pas : démarrez WAMP (icône verte), puis relancez les tests.\n");
+    exit(1);
+}
+
 $jar = tempnam(sys_get_temp_dir(), 'il');
 $passed = 0;
 $failed = 0;
