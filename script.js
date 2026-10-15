@@ -157,6 +157,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* --------------------------------------------------------
+     * 6) Ombre sous la barre de navigation dès que la page défile
+     * ------------------------------------------------------ */
+    function initNavbarShadow() {
+        var navbar = document.querySelector(".navbar");
+        if (!navbar) {
+            return;
+        }
+        function update() {
+            navbar.classList.toggle("is-scrolled", window.scrollY > 8);
+        }
+        window.addEventListener("scroll", update, { passive: true });
+        update();
+    }
+
+    /* --------------------------------------------------------
      * Initialisation de toutes les fonctionnalités
      * ------------------------------------------------------ */
     initAutoHide();
@@ -164,4 +179,5 @@ document.addEventListener("DOMContentLoaded", function () {
     initConfirm();
     initMobileMenu();
     initProductFilter();
+    initNavbarShadow();
 });

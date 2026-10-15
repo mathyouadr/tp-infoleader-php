@@ -1341,3 +1341,238 @@ img {
         width: 100%;
     }
 }
+
+/* ============================================
+   16. Animations et finitions (fork TP 2ter)
+   Une seule séquence au chargement (accueil) ; le reste répond
+   aux actions du visiteur. Tout est coupé si l'utilisateur
+   demande moins d'animations (voir fin de section).
+   ============================================ */
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+}
+
+@keyframes grid-drift {
+    to {
+        background-position: 48px 48px, 48px 48px;
+    }
+}
+
+@keyframes card-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+}
+
+@keyframes alert-in {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+}
+
+/* Quadrillage « plan technique » dans la bannière, en écho aux visuels produits */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.25) 75%);
+    mask-image: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.25) 75%);
+    animation: grid-drift 24s linear infinite;
+    pointer-events: none;
+}
+
+.hero__inner {
+    z-index: 2;
+}
+
+/* Séquence d'ouverture : titre, texte, boutons, puis les nouveautés */
+.hero__title {
+    animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.hero__slogan {
+    animation: rise 0.7s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.hero__actions {
+    animation: rise 0.7s 0.24s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.shelf {
+    animation: rise 0.8s 0.36s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Même quadrillage, fixe et discret, sous les titres des pages internes */
+.page-header {
+    background-image:
+        linear-gradient(rgba(0, 86, 179, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 86, 179, 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: -1px -1px;
+}
+
+.page-header h1 {
+    animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Barre de navigation : ombre dès que la page défile (classe posée par script.js) */
+.navbar {
+    transition: box-shadow 0.25s ease;
+}
+
+.navbar.is-scrolled {
+    box-shadow: 0 6px 20px rgba(20, 35, 60, 0.08);
+}
+
+/* Boutons : légère pression au clic */
+.cta,
+.btn,
+.btn-submit {
+    transition: background-color var(--transition), color var(--transition), transform 0.12s ease;
+}
+
+.cta:active,
+.btn:active,
+.btn-submit:active {
+    transform: scale(0.97);
+}
+
+/* Cartes produits : apparition échelonnée, et à chaque nouvelle recherche */
+.products-grid .product-card {
+    animation: card-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.products-grid .product-card:nth-child(2) { animation-delay: 0.05s; }
+.products-grid .product-card:nth-child(3) { animation-delay: 0.1s; }
+.products-grid .product-card:nth-child(4) { animation-delay: 0.15s; }
+.products-grid .product-card:nth-child(5) { animation-delay: 0.2s; }
+.products-grid .product-card:nth-child(n+6) { animation-delay: 0.25s; }
+
+/* Survol d'une carte : l'image se rapproche, la bordure passe au bleu */
+.product-card__image img,
+.product-card__placeholder {
+    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.product-card:hover .product-card__image img,
+.product-card:hover .product-card__placeholder {
+    transform: scale(1.05);
+}
+
+.product-card:focus-within {
+    border-color: var(--blue);
+}
+
+/* Lien « Demander un devis » : soulignement qui se remplit au survol */
+.product-card__quote {
+    text-decoration: none;
+    background-image: linear-gradient(var(--blue), var(--blue));
+    background-size: 0% 2px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    box-shadow: inset 0 -1px 0 rgba(0, 86, 179, 0.3);
+    transition: background-size 0.3s ease;
+}
+
+.product-card__quote:hover,
+.product-card__quote:focus-visible {
+    background-size: 100% 2px;
+}
+
+/* Étapes de l'accueil : le trait du haut se colore au survol */
+.steps__list li {
+    position: relative;
+}
+
+.steps__list li::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--blue);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.steps__list li:hover::after {
+    transform: scaleX(1);
+}
+
+/* Messages : arrivée en douceur */
+.alert {
+    animation: alert-in 0.35s ease both;
+}
+
+/* FAQ : chevron qui pivote, ouverture animée (navigateurs récents) */
+.faq {
+    interpolate-size: allow-keywords;
+}
+
+.faq__item summary {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: color var(--transition), background-color var(--transition);
+}
+
+.faq__item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq__item summary::after {
+    content: "";
+    flex-shrink: 0;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform 0.3s ease;
+}
+
+.faq__item[open] summary::after {
+    transform: rotate(225deg) translate(-2px, -2px);
+}
+
+.faq__item summary:hover {
+    background-color: var(--mist);
+}
+
+.faq__item::details-content {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.35s ease, content-visibility 0.35s allow-discrete;
+}
+
+.faq__item[open]::details-content {
+    height: auto;
+}
+
+/* Moins d'animations demandé : tout devient immédiat */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+    }
+
+    .product-card:hover .product-card__image img,
+    .product-card:hover .product-card__placeholder {
+        transform: none;
+    }
+}
