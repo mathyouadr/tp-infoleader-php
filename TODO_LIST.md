@@ -96,7 +96,7 @@ Ce plan est pensé pour vous, étudiant en BTS SIO 1re année. Toutes les action
 
 | # | Action | Prio | Complexité | Fichiers concernés | Critère d'acceptation | État |
 |---|---|---|---|---|---|---|
-| EXPL-1 | Mettre en place une sauvegarde SQL restaurable avec `mysqldump` (fourni avec WAMP) et documenter la restauration (L12) | P1 | simple | `README.md` (procédure) | Un fichier `.sql` est créé **hors** de `C:\wamp\www` ; importé dans une base vide `infoleader_restore` via phpMyAdmin, il redonne les 6 tables et leurs données | ⬜ |
+| EXPL-1 | Mettre en place une sauvegarde SQL restaurable avec `mysqldump` (fourni avec WAMP) et documenter la restauration (L12) | P1 | simple | `README.md` (procédure) | Un fichier `.sql` est créé **hors** de `C:\wamp\www` ; importé dans une base vide `infoleader_restore` via phpMyAdmin, il redonne les 6 tables et leurs données | ✅ 15/10/2026 |
 | EXPL-2 | Donner un mot de passe au compte MySQL `root` de WAMP (L3) | P1 | simple | aucun (phpMyAdmin → Comptes d'utilisateurs) | phpMyAdmin refuse `root` sans mot de passe ; le site fonctionne toujours (il utilise le compte `infoleader`) ; `php app/install.php --root-pass=…` fonctionne | ⬜ |
 | EXPL-3 | Passer `display_errors` à `Off` pour Apache dans WAMP (L7) | P2 | simple | aucun (menu WAMP → PHP → Paramètres PHP) | Une erreur de syntaxe volontaire dans un fichier de test affiche une page vide ou une erreur 500, sans chemin de fichier ; le fichier de test est ensuite supprimé | ⬜ |
 | EXPL-4 | Permettre de vider le log SMTP de débogage depuis Maintenance (L13) | P2 | simple | `admin/maintenance.php`, `tests/http_test.php` | Bouton avec case de confirmation ; après purge, la ligne « Log de débogage SMTP » de l'onglet Système indique « vide » | ⬜ |
@@ -129,7 +129,7 @@ Traitez les jalons dans l'ordre. À l'intérieur d'un jalon, une tâche à la fo
 | **0 — Avant la publication sur GitHub** | Ne publier aucun secret | SEC-1 ✅ | P0 |
 | **1 — Urgent** | Supprimer le risque de la clé exposée, respecter l'obligation d'information | SEC-2, RGPD-1 ✅ | P0 |
 | **2 — Sécurité et conformité** | Renforcer le site public et la gestion des données personnelles | SEC-3 ✅, RGPD-2 ✅, RGPD-3 ✅, EXPL-2 | P1 |
-| **3 — Fiabilité** | Pouvoir restaurer la base, fiabiliser le code et les tests, documentation juste | EXPL-1, DATA-1, CODE-1, CODE-2, DOC-1 | P1 |
+| **3 — Fiabilité** | Pouvoir restaurer la base, fiabiliser le code et les tests, documentation juste | EXPL-1 ✅, DATA-1, CODE-1, CODE-2, DOC-1 | P1 |
 | **4 — Améliorations rapides** | Petits gains de confort, d'accessibilité et de propreté | DATA-2, CODE-3, CODE-4, FRONT-2, FRONT-3, FRONT-4, FRONT-5, EXPL-3, EXPL-4, RGPD-4 | P2 |
 | **5 — Pour aller plus loin** | Tâches plus longues, si le temps le permet | FRONT-1, SEC-4, SEC-5, SEC-6 | P2 |
 | **En continu** | Garder la documentation fidèle au code | DOC-2 | P1 |

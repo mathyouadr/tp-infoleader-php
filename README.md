@@ -70,6 +70,28 @@ infoleader/
   3 s après le 1er échec, puis 6, 12, 24 s ; au 5e échec, IP bloquée 15 min. Résiste aux rechargements.
 - Code de réinitialisation : 8 chiffres, haché, valable 5 min, usage unique, invalidé après 5 essais. Réponse identique que le compte existe ou non.
 
+## Sauvegarde et restauration de la base
+
+La sauvegarde JSON de l'admin (Maintenance → Sauvegarde) ne se réimporte pas. Pour une copie **restaurable**, utilisez `mysqldump`, fourni avec WAMP.
+Commandes à taper dans l'**Invite de commandes** (`cmd`). `-p` demande le mot de passe `root` de MySQL (sous WAMP, il est vide par défaut : appuyez sur Entrée).
+
+```bat
+mkdir C:\sauvegardes
+"C:\wamp\bin\mysql\mysql8.4.7\bin\mysqldump.exe" -u root -p --single-transaction --no-tablespaces --result-file=C:\sauvegardes\infoleader-2026-10-15.sql infoleader
+```
+
+> ⚠️ Ce fichier contient les hachages de mot de passe et la clé SMTP chiffrée : gardez-le **hors** de `C:\wamp\www`, ne le publiez jamais (`*.sql` est ignoré par Git, sauf `app/schema.sql`).
+
+**Vérifier la sauvegarde** sans toucher à la vraie base : la restaurer dans une base vide, contrôler les 6 tables dans phpMyAdmin, puis la supprimer.
+
+```bat
+"C:\wamp\bin\mysql\mysql8.4.7\bin\mysql.exe" -u root -p -e "CREATE DATABASE infoleader_restore CHARACTER SET utf8mb4"
+"C:\wamp\bin\mysql\mysql8.4.7\bin\mysql.exe" -u root -p infoleader_restore -e "source C:/sauvegardes/infoleader-2026-10-15.sql"
+"C:\wamp\bin\mysql\mysql8.4.7\bin\mysql.exe" -u root -p -e "DROP DATABASE infoleader_restore"
+```
+
+**Restaurer pour de vrai** (remplace toutes les tables de `infoleader` par celles du fichier) : même commande `source`, avec `infoleader` à la place de `infoleader_restore`.
+
 ## Tests
 
 ```bash

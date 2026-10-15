@@ -5,6 +5,10 @@ storage/logs/*
 !storage/tmp/.gitkeep
 !storage/logs/.gitkeep
 
+# Sauvegardes SQL (contiennent des hachages et la clé SMTP chiffrée) : jamais versionnées
+*.sql
+!app/schema.sql
+
 # Images envoyées depuis l'admin (seul le .htaccess de protection est versionné)
 assets/products/uploads/*
 !assets/products/uploads/.htaccess

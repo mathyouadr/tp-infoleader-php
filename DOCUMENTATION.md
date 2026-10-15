@@ -463,7 +463,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 
 ### Stockage et exploitation
 
-12. 🟠 **Sauvegarde non restaurable.** L'export JSON n'a pas de fonction d'import et retire volontairement les hachages de mot de passe. Il ne permet pas de reconstruire la base. Aucune sauvegarde SQL n'est prévue.
+12. ✅ ~~Sauvegarde non restaurable.~~ Corrigé le 15/10/2026 (tâche EXPL-1) : `README.md` (section « Sauvegarde et restauration de la base ») décrit une sauvegarde `mysqldump` restaurable et sa vérification dans une base vide ; `*.sql` est ignoré par Git (sauf `app/schema.sql`). L'export JSON reste un export de consultation.
 13. 🟡 **Log SMTP sans limite de taille** : `mail_debug_writer()` ajoute en fin de fichier (`FILE_APPEND`) et Maintenance ne propose pas de le vider.
 14. 🟡 **`products.json` reste accessible** à `http://localhost/infoleader/products.json` (le `.htaccess` racine ne le bloque pas). Il ne contient que le catalogue public, mais ne sert plus qu'à l'installation.
 15. 🟡 **Mode PHP `mail()` non fonctionnel sous WAMP** : il est enregistrable mais n'envoie rien.

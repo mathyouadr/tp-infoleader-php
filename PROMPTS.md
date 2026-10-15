@@ -131,6 +131,7 @@ Commence par la première tâche P0.
 | SEC-3 | En-tête CSP déplacé de `app/layout.php` vers `app/bootstrap.php` : une seule ligne protège toutes les pages ; 4 vérifications ajoutées dans `tests/http_test.php` | `php tests/http_test.php` → 91 réussis, 0 échec ; dans le navigateur, recherche produits et menu mobile fonctionnent, console sans erreur |
 | RGPD-2 | Page `mentions-legales.php` (entreprise fictive, hébergement local, données collectées, droits, cookie de session), lien dans le pied de page et depuis la mention du contact, styles `.legal-wrap` ; 2 vérifications ajoutées | `php tests/http_test.php` → 93 réussis, 0 échec ; page contrôlée dans le navigateur (ordinateur et mobile 375 px, sans débordement), console sans erreur |
 | RGPD-3 | Purge automatique dans `admin/index.php` (journaux > 12 mois, compteurs `throttle` périmés, suppression journalisée) ; textes RGPD mis à jour ; retour chariot brut de `contact.php` remplacé par `\r` (il avait été converti par erreur lors de l'édition) ; 1 vérification ajoutée | `php tests/http_test.php` → 94 réussis, 0 échec (entrée de 13 mois supprimée, 11 mois conservée) |
+| EXPL-1 | Procédure `mysqldump` / `mysql -e source` dans `README.md`, testée pour de vrai ; `*.sql` ajouté à `.gitignore` | Export de 67 Ko, restauré dans `infoleader_restore` : 6 tables, 6 articles, 1 admin ; base temporaire et fichier supprimés ensuite |
 
 *(Compléter ce tableau à chaque nouvelle tâche validée.)*
 
