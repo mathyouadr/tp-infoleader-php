@@ -450,7 +450,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 3. 🟠 **Compte MySQL `root` sans mot de passe** par défaut sous WAMP. L'installeur le suppose (`--root-pass` vide). Tout programme local peut alors lire ou effacer la base.
 4. 🟡 **Limitation de débit sans verrou.** Deux requêtes strictement simultanées peuvent passer pendant un délai (commentaire `ponytail:` dans `throttle_fail()`, `app/bootstrap.php`).
 5. ✅ ~~Énumération possible par le temps de réponse.~~ Corrigé le 15/10/2026 (tâche SEC-4) : `admin/login.php` vérifie toujours un hachage (factice si l'adresse est inconnue).
-6. 🟡 **Les autres sessions restent ouvertes** après un changement ou une réinitialisation de mot de passe (`admin/password.php`, `admin/reset.php`). Seule la session courante change d'ID.
+6. ✅ ~~Les autres sessions restent ouvertes.~~ Corrigé le 15/10/2026 (tâche SEC-5) : `current_admin()` compare une empreinte du hachage gardée en session ; après un changement ou une réinitialisation, les autres sessions sont fermées.
 7. 🟡 **`display_errors = On` dans `phpForApache.ini`.** Le code le désactive à l'exécution, mais une erreur de syntaxe PHP s'afficherait avant, avec le chemin des fichiers.
 
 ### Conformité / RGPD (Règlement général sur la protection des données)

@@ -40,9 +40,10 @@ if (is_post()) {
                 flash('error', $error);
             }
         } else {
-            db()->prepare('UPDATE admins SET password_hash = ? WHERE id = ?')
-                ->execute([password_hash($password, PASSWORD_DEFAULT), $admin['id']]);
+            $newHash = password_hash($password, PASSWORD_DEFAULT);
+            db()->prepare('UPDATE admins SET password_hash = ? WHERE id = ?')->execute([$newHash, $admin['id']]);
             session_regenerate_id(true);
+            $_SESSION['password_fp'] = password_fingerprint($newHash); // seule cette session reste ouverte
             log_event('event', 'Mot de passe modifié : ' . $admin['email']);
             flash('success', 'Mot de passe modifié avec succès.');
             redirect('password.php');

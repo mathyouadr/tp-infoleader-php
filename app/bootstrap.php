@@ -170,9 +170,22 @@ function current_admin(): ?array
         return null;
     }
     $_SESSION['last_activity'] = time();
-    $stmt = db()->prepare('SELECT id, email FROM admins WHERE id = ?');
+    $stmt = db()->prepare('SELECT id, email, password_hash FROM admins WHERE id = ?');
     $stmt->execute([$_SESSION['admin_id']]);
-    return $stmt->fetch() ?: null;
+    $admin = $stmt->fetch();
+    // Mot de passe changé ailleurs (autre session, réinitialisation) : cette session est fermée
+    if (!$admin || !hash_equals($_SESSION['password_fp'] ?? '', password_fingerprint($admin['password_hash']))) {
+        logout();
+        return null;
+    }
+    unset($admin['password_hash']);
+    return $admin;
+}
+
+/** Empreinte du hachage actuel, gardée en session pour détecter un changement de mot de passe */
+function password_fingerprint(string $hash): string
+{
+    return hash('sha256', $hash);
 }
 
 /** Contrôle d'accès : à appeler en tête de chaque page protégée */
@@ -190,6 +203,7 @@ function login(array $admin): void
 {
     session_regenerate_id(true); // empêche la fixation de session
     $_SESSION['admin_id'] = (int) $admin['id'];
+    $_SESSION['password_fp'] = password_fingerprint($admin['password_hash']);
     $_SESSION['login_time'] = time();
     $_SESSION['last_activity'] = time();
 }
