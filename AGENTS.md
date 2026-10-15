@@ -16,7 +16,7 @@ Showcase site for an IT hardware company (TP1) + secured admin panel (TP2). Fren
 ```bash
 php composer.phar install                           # PHPMailer
 php app/install.php --email=admin@example.com       # DB + user + schema + seed + first admin (prints password once)
-php tests/http_test.php                             # end-to-end tests against Apache (86 checks, must stay green)
+php tests/http_test.php                             # end-to-end tests against Apache (87 checks, must stay green)
 ```
 
 `app/install.php` is CLI-only and re-runnable: reuses `storage/config.php`, applies `app/schema.sql` (`CREATE TABLE IF NOT EXISTS`), seeds `products` from `products.json` only if the table is empty, creates an admin only if none exists.

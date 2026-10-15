@@ -246,7 +246,9 @@ try {
     [$code, $body] = http('admin/maintenance.php?tab=system');
     check($code === 200 && str_contains($body, 'État global') && str_contains($body, 'pdo_mysql'), 'Système : état global affiché');
 
-    // Contact → journal, puis filtres
+    // Contact → information RGPD, journal, puis filtres
+    [, $body] = http('contact.php');
+    check(str_contains($body, 'servent uniquement à répondre') && str_contains($body, 'faire supprimer'), 'Contact : information RGPD affichée sous le formulaire');
     $tag = 'test-' . bin2hex(random_bytes(3));
     [, $body] = http('contact.php', ['csrf' => csrf('contact.php'), 'nom' => 'Testeur', 'email' => 'testeur@exemple.fr', 'message' => "Bonjour $tag"]);
     check(str_contains($body, 'bien été reçu') && str_contains($body, 'testeur@exemple.fr'), 'Formulaire de contact : message reçu');

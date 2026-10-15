@@ -140,6 +140,15 @@ site_header("Contact", "Écrivez à InfoLeader : une question, un devis, un proj
                 </div>
 
                 <button type="submit" class="btn-submit">Envoyer le message</button>
+
+                <!-- Information RGPD : usage des données collectées (TODO_LIST.md, RGPD-1) -->
+                <p class="form-hint form-notice">
+                    Vos données (nom, e-mail, message) servent uniquement à répondre à votre demande.
+                    Elles sont transmises par e-mail à l'équipe InfoLeader et conservées dans l'espace
+                    d'administration du site jusqu'à leur suppression par l'administrateur.
+                    Elles ne sont ni vendues ni partagées. Pour les consulter ou les faire supprimer,
+                    écrivez-nous via ce formulaire.
+                </p>
             </form>
 
         <?php endif; ?>
