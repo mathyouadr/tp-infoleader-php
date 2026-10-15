@@ -225,9 +225,9 @@ const THROTTLE_MAX_FAILURES = 5;
 const THROTTLE_BLOCK_TIME = 900;
 const THROTTLE_FORGET_AFTER = 3600; // les échecs anciens sont oubliés
 
-function throttle_row(string $scope): array
+function throttle_row(string $scope, bool $lock = false): array
 {
-    $stmt = db()->prepare('SELECT * FROM throttle WHERE ip = ? AND scope = ?');
+    $stmt = db()->prepare('SELECT * FROM throttle WHERE ip = ? AND scope = ?' . ($lock ? ' FOR UPDATE' : ''));
     $stmt->execute([client_ip(), $scope]);
     $row = $stmt->fetch();
     if (!$row || ($row['blocked_until'] < time() && $row['updated_at'] < time() - THROTTLE_FORGET_AFTER)) {
@@ -253,8 +253,24 @@ function throttle_check(string $scope): ?string
 /** Enregistre un échec ; renvoie le nombre de secondes à attendre */
 function throttle_fail(string $scope): int
 {
-    // ponytail: pas de verrou, deux requêtes simultanées peuvent passer ; SELECT ... FOR UPDATE si besoin
-    $row = throttle_row($scope);
+    // Transaction + verrou de ligne : deux échecs simultanés sont bien comptés deux fois
+    $pdo = db();
+    $pdo->beginTransaction();
+    try {
+        $pdo->prepare('INSERT IGNORE INTO throttle (ip, scope) VALUES (?, ?)')->execute([client_ip(), $scope]);
+        $wait = throttle_fail_locked($scope);
+        $pdo->commit();
+    } catch (Throwable $e) {
+        $pdo->rollBack();
+        throw $e;
+    }
+    return $wait;
+}
+
+/** Calcule et enregistre l'échec ; appelée dans la transaction de throttle_fail() */
+function throttle_fail_locked(string $scope): int
+{
+    $row = throttle_row($scope, true);
     $now = time();
     // Un blocage expiré repart de zéro
     $failures = ($row['blocked_until'] > 0 && $row['blocked_until'] <= $now) ? 1 : $row['failures'] + 1;

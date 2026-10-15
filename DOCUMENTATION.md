@@ -448,7 +448,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 1. 🔴 **Clé secrète Mailjet exposée.** `ETAT-DU-PROJET.md` indique qu'elle « a été partagée dans une conversation » et qu'elle est à régénérer. Tant qu'elle est valide, un tiers peut envoyer des e-mails au nom du compte.
 2. ✅ ~~Pas de CSP sur le site public.~~ Corrigé le 15/10/2026 (tâche SEC-3) : l'en-tête `Content-Security-Policy` est désormais envoyé par `app/bootstrap.php` pour toutes les pages, publiques et admin.
 3. 🟠 **Compte MySQL `root` sans mot de passe** par défaut sous WAMP. L'installeur le suppose (`--root-pass` vide). Tout programme local peut alors lire ou effacer la base.
-4. 🟡 **Limitation de débit sans verrou.** Deux requêtes strictement simultanées peuvent passer pendant un délai (commentaire `ponytail:` dans `throttle_fail()`, `app/bootstrap.php`).
+4. ✅ ~~Limitation de débit sans verrou.~~ Corrigé le 15/10/2026 (tâche SEC-6) : `throttle_fail()` crée la ligne puis la lit avec `SELECT … FOR UPDATE` dans une transaction : les échecs simultanés sont tous comptés. La vérification (`throttle_check()`) reste séparée.
 5. ✅ ~~Énumération possible par le temps de réponse.~~ Corrigé le 15/10/2026 (tâche SEC-4) : `admin/login.php` vérifie toujours un hachage (factice si l'adresse est inconnue).
 6. ✅ ~~Les autres sessions restent ouvertes.~~ Corrigé le 15/10/2026 (tâche SEC-5) : `current_admin()` compare une empreinte du hachage gardée en session ; après un changement ou une réinitialisation, les autres sessions sont fermées.
 7. 🟡 **`display_errors = On` dans `phpForApache.ini`.** Le code le désactive à l'exécution, mais une erreur de syntaxe PHP s'afficherait avant, avec le chemin des fichiers.
