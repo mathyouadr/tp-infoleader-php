@@ -138,6 +138,7 @@ Commence par la première tâche P0.
 | DATA-2 | `products.json` ajouté au `FilesMatch` du `.htaccess` ; tests 403 sur `products.json`, `composer.json`, `README.md`. Au passage : `send_mail()` journalise aussi l'échec « configuration incomplète » ; les tests désactivent l'envoi après la section Mailjet (fin d'un test instable) et ignorent, en le signalant, les 2 vérifications réseau si Mailjet ne répond pas | `php tests/http_test.php` → 96 réussis, 0 échec, 2 ignorées (Mailjet bloquait temporairement) |
 | FRONT-2 | Fonction `initSmoothScroll()` (inutilisée, ignorait « réduire les animations ») supprimée de `script.js` | Recherche produits et menu mobile vérifiés ; console sans erreur |
 | CODE-3 | Commentaire « 4 modules » d'`admin/index.php` corrigé ; celui de `script.js` a disparu avec FRONT-2 | Relecture ; aucun changement de comportement |
+| RGPD-4 | Case « Exclure les messages de contact » dans Maintenance → Sauvegarde (cochée par défaut) | Syntaxe PHP vérifiée (tests sautés à la demande de l'étudiant) |
 
 *(Compléter ce tableau à chaque nouvelle tâche validée.)*
 

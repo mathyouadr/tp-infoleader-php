@@ -163,7 +163,9 @@ if (is_post()) {
             'note' => 'Sauvegarde sans mots de passe, secrets SMTP ni jetons.',
             'admins' => db()->query('SELECT id, email, created_at, updated_at FROM admins')->fetchAll(),
             'settings' => [],
-            'logs' => db()->query('SELECT id, type, ip, message, created_at FROM logs ORDER BY id')->fetchAll(),
+            // Option RGPD : sans les messages de contact (données personnelles des visiteurs)
+            'logs' => db()->query('SELECT id, type, ip, message, created_at FROM logs'
+                . (empty($_POST['exclude_contact']) ? '' : " WHERE type <> 'contact'") . ' ORDER BY id')->fetchAll(),
             'products' => db()->query('SELECT id, name, price, description, image, created_at, updated_at FROM products ORDER BY id')->fetchAll(),
         ];
         foreach (db()->query('SELECT name, value FROM settings')->fetchAll() as $row) {
@@ -329,6 +331,9 @@ admin_header('Maintenance', $admin, 'État du système, journaux, sauvegarde et 
         <form action="maintenance.php" method="post">
             <?= csrf_field() ?>
             <input type="hidden" name="action" value="backup">
+            <div class="form-check">
+                <label><input type="checkbox" name="exclude_contact" value="1" checked> Exclure les messages de contact (données personnelles des visiteurs)</label>
+            </div>
             <button type="submit" class="btn">Télécharger la sauvegarde</button>
         </form>
     </section>

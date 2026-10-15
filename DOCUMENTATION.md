@@ -458,7 +458,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 8. ✅ ~~Aucune information sur l'usage des données sous le formulaire de contact.~~ Corrigé le 15/10/2026 (tâche RGPD-1) : une mention sous le bouton « Envoyer » indique l'usage, le destinataire, la conservation et la façon de demander la suppression (`contact.php`). La durée de conservation reste « jusqu'à suppression par l'administrateur » (voir L10).
 9. ✅ ~~Pas de page « Mentions légales / Confidentialité ».~~ Corrigé le 15/10/2026 (tâche RGPD-2) : `mentions-legales.php`, reliée dans `site_footer()` (`app/site.php`) et depuis la mention du formulaire de contact.
 10. ✅ ~~Aucune durée de conservation.~~ Corrigé le 15/10/2026 (tâche RGPD-3) : à chaque ouverture du tableau de bord, `admin/index.php` supprime les journaux de plus de 12 mois (et les compteurs anti force brute périmés). La mention du formulaire de contact et `mentions-legales.php` annoncent « 12 mois au maximum ».
-11. 🟡 **La sauvegarde JSON contient les messages de contact** (données personnelles) en clair, avec nom et e-mail des visiteurs (`admin/maintenance.php`, action `backup`).
+11. ✅ ~~La sauvegarde JSON contient les messages de contact.~~ Corrigé le 15/10/2026 (tâche RGPD-4) : l'onglet Sauvegarde propose « Exclure les messages de contact » (coché par défaut).
 
 ### Stockage et exploitation
 
