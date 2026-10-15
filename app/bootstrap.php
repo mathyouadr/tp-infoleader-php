@@ -151,8 +151,9 @@ function render_flashes(): string
 /** Types : login_ok, login_fail, blocked, event, contact */
 function log_event(string $type, string $message): void
 {
+    // 6000 caractères : un message de contact complet (5000 + nom + e-mail) tient dans la colonne TEXT
     db()->prepare('INSERT INTO logs (type, ip, message) VALUES (?, ?, ?)')
-        ->execute([$type, client_ip(), mb_substr($message, 0, 2000)]);
+        ->execute([$type, client_ip(), mb_substr($message, 0, 6000)]);
 }
 
 /* ---------- Authentification ---------- */

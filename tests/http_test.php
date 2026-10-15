@@ -280,6 +280,15 @@ try {
     clear_throttle();
     [$code] = http('contact.php', ['nom' => 'x', 'email' => 'x@x.fr', 'message' => 'x']);
     check($code === 400, 'Contact : CSRF exigé');
+
+    // Message long conservé en entier dans les journaux (DATA-1)
+    $long = 'long-' . bin2hex(random_bytes(3)) . ' ' . str_repeat('é', 4000);
+    http('contact.php', ['csrf' => csrf('contact.php'), 'nom' => 'Testeur', 'email' => 'testeur@exemple.fr', 'message' => $long]);
+    $find = db()->prepare("SELECT message FROM logs WHERE type = 'contact' AND message LIKE ?");
+    $find->execute(['%' . substr($long, 0, 11) . '%']);
+    check(str_ends_with((string) $find->fetchColumn(), $long), 'Contact : message de 4000 caractères conservé en entier dans les journaux');
+    db()->prepare("DELETE FROM logs WHERE type = 'contact' AND message LIKE ?")->execute(['%' . substr($long, 0, 11) . '%']);
+    clear_throttle();
     [, $body] = http('admin/maintenance.php?tab=logs&type=contact&q=' . $tag);
     check(str_contains($body, "Bonjour $tag") && str_contains($body, '1 entrée(s)'), 'Journaux : message de contact retrouvé par filtre type + texte');
     [, $body] = http('admin/maintenance.php?tab=logs&type=login_ok&q=' . $tag);

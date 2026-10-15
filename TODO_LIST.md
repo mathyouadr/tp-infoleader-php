@@ -53,7 +53,7 @@ Ce plan est pensé pour vous, étudiant en BTS SIO 1re année. Toutes les action
 
 | # | Action | Prio | Complexité | Fichiers concernés | Critère d'acceptation | État |
 |---|---|---|---|---|---|---|
-| DATA-1 | Ne plus couper les messages de contact à 2000 caractères dans les journaux (L16) | P1 | simple | `app/bootstrap.php` (`log_event()`), `tests/http_test.php` | Un message de 4000 caractères envoyé depuis Contact apparaît en entier dans Maintenance → Journaux ; un test le vérifie | ⬜ |
+| DATA-1 | Ne plus couper les messages de contact à 2000 caractères dans les journaux (L16) | P1 | simple | `app/bootstrap.php` (`log_event()`), `tests/http_test.php` | Un message de 4000 caractères envoyé depuis Contact apparaît en entier dans Maintenance → Journaux ; un test le vérifie | ✅ 15/10/2026 |
 | DATA-2 | Bloquer l'accès web à `products.json`, qui ne sert qu'à l'installation (L14) | P2 | simple | `.htaccess` | `http://localhost/infoleader/products.json` → erreur 403 ; `php app/install.php` fonctionne toujours (il lit le fichier sur le disque, pas par le web) | ⬜ |
 
 ---
@@ -129,7 +129,7 @@ Traitez les jalons dans l'ordre. À l'intérieur d'un jalon, une tâche à la fo
 | **0 — Avant la publication sur GitHub** | Ne publier aucun secret | SEC-1 ✅ | P0 |
 | **1 — Urgent** | Supprimer le risque de la clé exposée, respecter l'obligation d'information | SEC-2, RGPD-1 ✅ | P0 |
 | **2 — Sécurité et conformité** | Renforcer le site public et la gestion des données personnelles | SEC-3 ✅, RGPD-2 ✅, RGPD-3 ✅, EXPL-2 | P1 |
-| **3 — Fiabilité** | Pouvoir restaurer la base, fiabiliser le code et les tests, documentation juste | EXPL-1 ✅, DATA-1, CODE-1, CODE-2, DOC-1 | P1 |
+| **3 — Fiabilité** | Pouvoir restaurer la base, fiabiliser le code et les tests, documentation juste | EXPL-1 ✅, DATA-1 ✅, CODE-1, CODE-2, DOC-1 | P1 |
 | **4 — Améliorations rapides** | Petits gains de confort, d'accessibilité et de propreté | DATA-2, CODE-3, CODE-4, FRONT-2, FRONT-3, FRONT-4, FRONT-5, EXPL-3, EXPL-4, RGPD-4 | P2 |
 | **5 — Pour aller plus loin** | Tâches plus longues, si le temps le permet | FRONT-1, SEC-4, SEC-5, SEC-6 | P2 |
 | **En continu** | Garder la documentation fidèle au code | DOC-2 | P1 |

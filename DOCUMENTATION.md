@@ -65,7 +65,7 @@ Il n'y a **qu'un seul compte administrateur** et aucun compte visiteur (`app/ins
 | Extensions PHP | `pdo_mysql`, `openssl`, `mbstring`, `json` (contrôlées), `fileinfo` (uploads), `curl` (tests) | `admin/maintenance.php`, `app/catalog.php`, `tests/http_test.php` |
 | Front | HTML5, un seul CSS (`style.css`), un seul JS vanilla (`script.js`) | `app/site.php`, `app/layout.php` |
 | Police | Pile système sans-serif (`Segoe UI Variable`, `system-ui`) | `style.css` (`--font`) |
-| Tests | Script PHP + cURL contre Apache : 94 vérifications `check()` | `tests/http_test.php` |
+| Tests | Script PHP + cURL contre Apache : 95 vérifications `check()` | `tests/http_test.php` |
 
 Aucune ressource externe (CDN, police web, script tiers) n'est chargée : aucune URL externe dans `style.css`, `app/site.php` ou `app/layout.php`.
 
@@ -207,7 +207,7 @@ Moteur InnoDB, encodage `utf8mb4`. Les tables sont créées par `app/install.php
 | `id` | INT UNSIGNED, clé primaire | |
 | `type` | ENUM `login_ok`, `login_fail`, `blocked`, `event`, `contact` | indexé |
 | `ip` | VARCHAR(45) | `REMOTE_ADDR` |
-| `message` | TEXT (tronqué à 2000 caractères par `log_event()`) | les messages de contact y sont stockés |
+| `message` | TEXT (tronqué à 6000 caractères par `log_event()`) | les messages de contact y sont stockés |
 | `created_at` | DATETIME | indexé |
 
 **`products`** — catalogue
@@ -467,7 +467,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 13. 🟡 **Log SMTP sans limite de taille** : `mail_debug_writer()` ajoute en fin de fichier (`FILE_APPEND`) et Maintenance ne propose pas de le vider.
 14. 🟡 **`products.json` reste accessible** à `http://localhost/infoleader/products.json` (le `.htaccess` racine ne le bloque pas). Il ne contient que le catalogue public, mais ne sert plus qu'à l'installation.
 15. 🟡 **Mode PHP `mail()` non fonctionnel sous WAMP** : il est enregistrable mais n'envoie rien.
-16. 🟡 **Message de contact tronqué dans les journaux.** Le formulaire accepte 5000 caractères (`contact.php`), mais `log_event()` coupe à 2000 (`app/bootstrap.php`). L'e-mail reçoit le texte complet ; la copie en base, non.
+16. ✅ ~~Message de contact tronqué dans les journaux.~~ Corrigé le 15/10/2026 (tâche DATA-1) : `log_event()` (`app/bootstrap.php`) garde désormais 6000 caractères, assez pour un message complet (5000) avec le nom et l'e-mail.
 
 ### Qualité du code et tests
 
