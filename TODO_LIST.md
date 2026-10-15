@@ -75,7 +75,7 @@ Ce plan est pensé pour vous, étudiant en BTS SIO 1re année. Toutes les action
 |---|---|---|---|---|---|---|
 | FRONT-1 | Ajouter un thème sombre automatique (L22) | P2 | moyen | `style.css` | Windows en mode sombre → le site s'affiche en sombre et reste lisible ; en mode clair, rien ne change ; seules les variables de `:root` sont redéfinies | ⬜ |
 | FRONT-2 | Respecter le réglage « réduire les animations » dans le défilement fluide, ou supprimer cette fonction inutilisée (L23) | P2 | simple | `script.js` | Aucun défilement animé quand « Afficher les animations » est désactivé dans Windows ; le reste du script fonctionne | ✅ 15/10/2026 |
-| FRONT-3 | Ajouter un lien « Aller au contenu » pour la navigation au clavier (L24) | P2 | simple | `app/site.php`, `app/layout.php`, `style.css`, `index.php` | Touche Tab au chargement → le lien apparaît en premier ; Entrée → le focus passe au contenu principal | ⬜ |
+| FRONT-3 | Ajouter un lien « Aller au contenu » pour la navigation au clavier (L24) | P2 | simple | `app/site.php`, `app/layout.php`, `style.css`, `index.php` | Touche Tab au chargement → le lien apparaît en premier ; Entrée → le focus passe au contenu principal | ✅ 15/10/2026 |
 | FRONT-4 | Créer une page d'erreur 404 aux couleurs du site (L24) | P2 | simple | `.htaccess`, `404.php` (nouveau) | `http://localhost/infoleader/page-inexistante` → page InfoLeader avec un lien vers l'accueil, code HTTP 404 (F12 → Réseau) | ⬜ |
 | FRONT-5 | Remplacer les 6 images provisoires du TP1 par de vraies photos (L25) | P2 | simple | aucun (Admin → Articles) | Chaque article a une image réelle, JPEG/PNG/WebP de 2 Mo maximum | ⬜ |
 
@@ -130,6 +130,6 @@ Traitez les jalons dans l'ordre. À l'intérieur d'un jalon, une tâche à la fo
 | **1 — Urgent** | Supprimer le risque de la clé exposée, respecter l'obligation d'information | SEC-2, RGPD-1 ✅ | P0 |
 | **2 — Sécurité et conformité** | Renforcer le site public et la gestion des données personnelles | SEC-3 ✅, RGPD-2 ✅, RGPD-3 ✅, EXPL-2 | P1 |
 | **3 — Fiabilité** | Pouvoir restaurer la base, fiabiliser le code et les tests, documentation juste | EXPL-1 ✅, DATA-1 ✅, CODE-1 ✅, CODE-2 ✅, DOC-1 | P1 |
-| **4 — Améliorations rapides** | Petits gains de confort, d'accessibilité et de propreté | DATA-2 ✅, CODE-3 ✅, CODE-4, FRONT-2 ✅, FRONT-3, FRONT-4, FRONT-5, EXPL-3, EXPL-4 ✅, RGPD-4 ✅ | P2 |
+| **4 — Améliorations rapides** | Petits gains de confort, d'accessibilité et de propreté | DATA-2 ✅, CODE-3 ✅, CODE-4, FRONT-2 ✅, FRONT-3 ✅, FRONT-4, FRONT-5, EXPL-3, EXPL-4 ✅, RGPD-4 ✅ | P2 |
 | **5 — Pour aller plus loin** | Tâches plus longues, si le temps le permet | FRONT-1, SEC-4, SEC-5, SEC-6 | P2 |
 | **En continu** | Garder la documentation fidèle au code | DOC-2 | P1 |

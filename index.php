@@ -15,7 +15,7 @@ site_header('Accueil', 'InfoLeader : matériel informatique sélectionné pour s
 ?>
 
     <!-- ====== Bannière visuelle ====== -->
-    <header class="hero">
+    <header class="hero" id="contenu">
         <!-- Image de la bannière placée dans un <div> -->
         <div class="hero__visual">
             <img src="assets/banniere.png" alt="">

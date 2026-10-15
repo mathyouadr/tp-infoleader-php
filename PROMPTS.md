@@ -140,6 +140,7 @@ Commence par la première tâche P0.
 | CODE-3 | Commentaire « 4 modules » d'`admin/index.php` corrigé ; celui de `script.js` a disparu avec FRONT-2 | Relecture ; aucun changement de comportement |
 | RGPD-4 | Case « Exclure les messages de contact » dans Maintenance → Sauvegarde (cochée par défaut) | Syntaxe PHP vérifiée (tests sautés à la demande de l'étudiant) |
 | EXPL-4 | Bouton « Vider le log SMTP » avec case de confirmation dans Maintenance (onglet renommé « Fichiers temporaires ») | Syntaxe PHP vérifiée (tests sautés à la demande de l'étudiant) |
+| FRONT-3 | Lien d'évitement `.skip-link` vers `#contenu` sur toutes les pages publiques et admin | Syntaxe PHP vérifiée (tests sautés à la demande de l'étudiant) |
 
 *(Compléter ce tableau à chaque nouvelle tâche validée.)*
 

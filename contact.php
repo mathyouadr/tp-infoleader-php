@@ -88,7 +88,7 @@ site_header('Contact', 'Écrivez à InfoLeader : une question, un devis, un proj
     </header>
 
     <!-- ====== Formulaire de contact ====== -->
-    <main class="contact-wrap">
+    <main class="contact-wrap" id="contenu">
 
         <?php if ($success): ?>
 

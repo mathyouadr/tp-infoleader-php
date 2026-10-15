@@ -480,7 +480,7 @@ Classement : 🔴 à corriger en priorité · 🟠 important · 🟡 mineur.
 
 22. 🟡 **Pas de thème sombre** (aucune règle `prefers-color-scheme`).
 23. ✅ ~~Défilement fluide JavaScript.~~ Corrigé le 15/10/2026 (tâche FRONT-2) : `initSmoothScroll()` est supprimée de `script.js` ; le défilement des ancres passe par `scroll-behavior: smooth` en CSS, désactivé par `prefers-reduced-motion`.
-24. 🟡 **Pas de page 404 personnalisée** ni de lien d'évitement « Aller au contenu » pour la navigation au clavier.
+24. ✅ ~~Pas de page 404 personnalisée.~~ Corrigé le 15/10/2026 (tâche FRONT-3) : lien « Aller au contenu » ajouté (`app/site.php`, `app/layout.php`, `.skip-link`). La page 404 reste à faire (FRONT-4).
 25. 🟡 **Images du TP1 provisoires** (dégradé + texte, `ETAT-DU-PROJET.md`).
 
 ### Limites assumées (choix du TP, pas des défauts)

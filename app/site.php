@@ -26,6 +26,8 @@ function site_header(string $title, string $description = ''): void
     <link rel="stylesheet" href="style.css?v=<?= filemtime(ROOT . '/style.css') ?>">
 </head>
 <body>
+    <!-- Lien d'évitement : visible au clavier, saute le menu -->
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
 
     <!-- ====== Barre de navigation ====== -->
     <nav class="navbar">

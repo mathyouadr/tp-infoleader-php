@@ -25,7 +25,7 @@ site_header('Nos Produits', 'Claviers, écrans, souris, casques : le catalogue I
         </div>
     </header>
 
-    <main class="products-wrap">
+    <main class="products-wrap" id="contenu">
 
         <?php if ($count > 0): ?>
 

@@ -26,6 +26,7 @@ function admin_header(string $title, ?array $admin = null, string $subtitle = ''
     <link rel="stylesheet" href="../style.css?v=<?= filemtime(ROOT . '/style.css') ?>">
 </head>
 <body class="admin">
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
 
     <!-- ====== Barre de navigation de l'administration ====== -->
     <nav class="navbar">
@@ -59,7 +60,7 @@ function admin_header(string $title, ?array $admin = null, string $subtitle = ''
         </div>
     </header>
 
-    <main class="admin-wrap">
+    <main class="admin-wrap" id="contenu">
         <?= render_flashes() ?>
 <?php
 }

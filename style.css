@@ -101,6 +101,22 @@ img {
     scroll-margin-top: 90px;
 }
 
+/* Lien « Aller au contenu » : hors écran, visible au focus clavier */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0.5rem;
+    z-index: 1000;
+    padding: 0.6rem 1rem;
+    background-color: var(--blue);
+    color: var(--white);
+    border-radius: var(--radius-sm);
+}
+
+.skip-link:focus {
+    left: 0.5rem;
+}
+
 [hidden] {
     display: none !important;
 }

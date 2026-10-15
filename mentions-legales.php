@@ -21,7 +21,7 @@ site_header('Mentions légales', 'Mentions légales et politique de confidential
         </div>
     </header>
 
-    <main class="legal-wrap">
+    <main class="legal-wrap" id="contenu">
 
         <!-- ====== Éditeur et hébergement ====== -->
         <section>
