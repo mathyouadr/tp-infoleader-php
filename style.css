@@ -1576,3 +1576,462 @@ img {
         transform: none;
     }
 }
+
+/* ============================================
+   17. Thème « nuit violette » du site public (fork TP 2ter)
+   Inspiré de l'univers sombre et typographique de ciaoenergy.com :
+   noir profond qui vire au violet, accent lavande, titres en
+   capitales italiques grasses (Franklin Gothic, police de Windows).
+   Limité à <body class="site"> : l'administration garde le thème clair.
+   ============================================ */
+.site {
+    --night: #050507;
+    --night-2: #0d0b14;
+    --violet: #3d2b68;
+    --lavender: #9089d3;
+    --ink: rgba(255, 255, 255, 0.92);
+    --ink-soft: rgba(255, 255, 255, 0.62);
+    --hairline: rgba(255, 255, 255, 0.12);
+    --font-impact: "Franklin Gothic Medium", "Franklin Gothic", "Arial Narrow", system-ui, sans-serif;
+    background-color: var(--night);
+    color: var(--ink);
+}
+
+/* Titres : capitales italiques serrées */
+.site h1,
+.site h2,
+.site .hero__title,
+.footer__wordmark {
+    font-family: var(--font-impact);
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+}
+
+.site h3 {
+    color: var(--ink);
+}
+
+/* ---------- Barre de progression du défilement ---------- */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    width: 100%;
+    height: 2px;
+    background-color: var(--lavender);
+    transform: scaleX(var(--progress, 0));
+    transform-origin: left;
+    box-shadow: 0 0 10px rgba(144, 137, 211, 0.8);
+}
+
+/* ---------- Navigation ---------- */
+.site .navbar {
+    background-color: rgba(5, 5, 7, 0.82);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--hairline);
+}
+
+.site .navbar.is-scrolled {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.site .navbar__brand {
+    font-family: var(--font-impact);
+    font-style: italic;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+.site .navbar__brand span {
+    color: var(--lavender);
+}
+
+.site .navbar__links a {
+    color: var(--ink-soft);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.site .navbar__links a:hover {
+    color: var(--ink);
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.site .navbar__links a.is-active {
+    color: var(--ink);
+    box-shadow: inset 0 -2px 0 var(--lavender);
+}
+
+.site .menu-toggle span {
+    background-color: var(--ink);
+}
+
+/* ---------- Bannière ---------- */
+.site .hero {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    background: radial-gradient(120% 90% at 85% 110%, var(--violet) 0%, #1a1230 38%, var(--night) 72%);
+}
+
+.site .hero__visual img {
+    opacity: 0.18;
+    filter: grayscale(1);
+    mix-blend-mode: screen;
+}
+
+.site .hero::after {
+    background: linear-gradient(90deg, rgba(5, 5, 7, 0.75) 0%, rgba(5, 5, 7, 0) 70%);
+}
+
+.site .hero::before {
+    background-image:
+        linear-gradient(rgba(144, 137, 211, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(144, 137, 211, 0.12) 1px, transparent 1px);
+}
+
+.site .hero__inner {
+    width: 100%;
+}
+
+.site .hero__title {
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    max-width: 14ch;
+    margin-bottom: 1.6rem;
+    color: #fff;
+}
+
+.site .hero__slogan {
+    color: var(--ink-soft);
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
+
+/* Boutons : lavande pleine, capitales italiques */
+.site .cta,
+.site .btn-submit {
+    font-family: var(--font-impact);
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--night);
+    background-color: var(--lavender);
+    border-radius: 999px;
+}
+
+.site .cta:hover,
+.site .btn-submit:hover,
+.site .hero .cta:hover {
+    color: var(--night);
+    background-color: #fff;
+}
+
+.site .hero .cta {
+    color: var(--night);
+    background-color: var(--lavender);
+}
+
+.site .hero__link {
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    text-decoration-color: var(--lavender);
+}
+
+/* ---------- Nouveautés ---------- */
+.site .shelf {
+    background-color: var(--night-2);
+    border: 1px solid var(--hairline);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.site .shelf__head h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.site .shelf__head a {
+    color: var(--lavender);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+}
+
+/* ---------- Cartes produits ---------- */
+.site .product-card {
+    background-color: var(--night-2);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+}
+
+.site .product-card:hover,
+.site .product-card:focus-within {
+    border-color: var(--lavender);
+}
+
+.site .product-card__image {
+    background-color: var(--night);
+}
+
+.site .product-card__name {
+    color: var(--ink);
+}
+
+.site .product-card__description {
+    color: var(--ink-soft);
+}
+
+.site .product-card__price {
+    font-family: var(--font-impact);
+    font-style: italic;
+    color: var(--lavender);
+}
+
+.site .product-card__quote {
+    color: var(--ink);
+    background-image: linear-gradient(var(--lavender), var(--lavender));
+    box-shadow: inset 0 -1px 0 var(--hairline);
+}
+
+/* ---------- Étapes ---------- */
+.site .steps__title {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    max-width: 14ch;
+}
+
+.site .steps__list li {
+    border-top-color: var(--hairline);
+}
+
+.site .steps__list li::before {
+    font-family: var(--font-impact);
+    font-style: italic;
+    font-size: 4.5rem;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--lavender);
+}
+
+.site .steps__list li::after {
+    background-color: var(--lavender);
+}
+
+.site .steps__list p,
+.site .intro__text {
+    color: var(--ink-soft);
+}
+
+.site .steps__list a,
+.site .legal-wrap a,
+.site .contact-aside a,
+.site main p a {
+    color: var(--lavender);
+}
+
+/* ---------- Présentation ---------- */
+.site .intro__heading {
+    color: var(--ink);
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+/* ---------- En-têtes des pages internes ---------- */
+.site .page-header {
+    background-color: var(--night);
+    background-image:
+        radial-gradient(90% 140% at 100% 100%, rgba(61, 43, 104, 0.9) 0%, transparent 60%),
+        linear-gradient(rgba(144, 137, 211, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(144, 137, 211, 0.08) 1px, transparent 1px);
+    background-size: auto, 40px 40px, 40px 40px;
+    border-bottom: 1px solid var(--hairline);
+}
+
+.site .page-header__inner {
+    padding-top: 5rem;
+    padding-bottom: 3.5rem;
+}
+
+.site .page-header h1 {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.site .page-header__sub {
+    color: var(--ink-soft);
+}
+
+/* ---------- Recherche et formulaires ---------- */
+.site .search-bar__label,
+.site .form-control label,
+.site .toolbar__count {
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+}
+
+.site .search-bar__input,
+.site .form-control input,
+.site .form-control textarea {
+    color: var(--ink);
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+}
+
+.site .search-bar__input::placeholder,
+.site .form-control input::placeholder,
+.site .form-control textarea::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.site .search-bar__input:focus,
+.site .form-control input:focus,
+.site .form-control textarea:focus {
+    border-color: var(--lavender);
+    box-shadow: 0 0 0 3px rgba(144, 137, 211, 0.25);
+}
+
+.site .contact-form {
+    background-color: var(--night-2);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+}
+
+.site .contact-aside {
+    background-color: transparent;
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+}
+
+.site .contact-aside h2 {
+    font-size: 1.8rem;
+}
+
+.site .contact-aside ol,
+.site .form-hint,
+.site .products-empty {
+    color: var(--ink-soft);
+}
+
+/* ---------- Messages ---------- */
+.site .alert--success {
+    color: #c9f2dc;
+    background-color: rgba(8, 82, 41, 0.35);
+    border-color: rgba(201, 242, 220, 0.25);
+}
+
+.site .alert--error {
+    color: #ffd6d6;
+    background-color: rgba(102, 29, 29, 0.45);
+    border-color: rgba(255, 214, 214, 0.25);
+}
+
+/* ---------- FAQ : grands intitulés séparés par des filets ---------- */
+.site .faq__item {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--hairline);
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.site .faq__item summary {
+    padding: 1.5rem 0;
+    font-size: 1.15rem;
+    color: var(--ink);
+}
+
+.site .faq__item summary:hover {
+    background-color: transparent;
+    color: var(--lavender);
+}
+
+.site .faq__item[open] summary {
+    border-bottom: none;
+    color: var(--lavender);
+}
+
+.site .faq__item p {
+    padding: 0 0 1.5rem;
+    color: var(--ink-soft);
+    max-width: 62ch;
+}
+
+/* ---------- Pages de texte ---------- */
+.site .legal-wrap h2 {
+    font-size: 2rem;
+    color: var(--ink);
+}
+
+.site .legal-wrap code {
+    color: var(--lavender);
+}
+
+.site .legal-wrap__date {
+    color: var(--ink-soft);
+}
+
+/* ---------- Pied de page + grand logotype ---------- */
+.site .footer {
+    background-color: var(--night);
+    border-top: 1px solid var(--hairline);
+    color: var(--ink-soft);
+    overflow: hidden;
+}
+
+.site .footer__brand {
+    font-family: var(--font-impact);
+    font-style: italic;
+    text-transform: uppercase;
+}
+
+.site .footer__brand span {
+    color: var(--lavender);
+}
+
+.site .footer__links a {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.78rem;
+}
+
+.footer__wordmark {
+    max-width: var(--container);
+    margin: 1rem auto 0;
+    padding: 0 1.5rem;
+    font-size: clamp(3.5rem, 15vw, 13rem);
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(144, 137, 211, 0.45);
+    user-select: none;
+}
+
+.site .footer__legal {
+    border-top-color: var(--hairline);
+}
+
+/* ---------- Lien d'évitement et focus ---------- */
+.site .skip-link {
+    color: var(--night);
+    background-color: var(--lavender);
+}
+
+.site :focus-visible {
+    outline-color: var(--lavender);
+}
+
+@media (max-width: 640px) {
+    .site .navbar__links.is-open {
+        background-color: var(--night);
+    }
+
+    .site .hero {
+        min-height: auto;
+    }
+}

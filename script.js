@@ -164,8 +164,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!navbar) {
             return;
         }
+        var progress = document.querySelector(".scroll-progress");
         function update() {
             navbar.classList.toggle("is-scrolled", window.scrollY > 8);
+            // Barre de progression : part de la page déjà parcourue (0 à 1)
+            if (progress) {
+                var max = document.documentElement.scrollHeight - window.innerHeight;
+                progress.style.setProperty("--progress", max > 0 ? window.scrollY / max : 0);
+            }
         }
         window.addEventListener("scroll", update, { passive: true });
         update();

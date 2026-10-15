@@ -48,7 +48,9 @@ function site_header(string $title, string $description = '', bool $noindex = fa
     <meta property="og:image" content="<?= e($origin . $base) ?>assets/banniere.webp">
     <link rel="stylesheet" href="<?= e($base) ?>style.css?v=<?= filemtime(ROOT . '/style.css') ?>">
 </head>
-<body>
+<body class="site">
+    <!-- Barre de progression du défilement (largeur mise à jour par script.js) -->
+    <div class="scroll-progress" aria-hidden="true"></div>
     <!-- Lien d'évitement : visible au clavier, saute le menu -->
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
@@ -89,6 +91,8 @@ function site_footer(): void
                 <li><a href="<?= e($base) ?>admin/">Administration</a></li>
             </ul>
         </div>
+        <!-- Grand logotype décoratif en bas de page -->
+        <p class="footer__wordmark" aria-hidden="true">InfoLeader</p>
         <p class="footer__legal">&copy; <?= date('Y') ?> InfoLeader — Tous droits réservés.</p>
     </footer>
 
