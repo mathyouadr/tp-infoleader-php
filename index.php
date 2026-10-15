@@ -18,7 +18,7 @@ site_header('Accueil', 'InfoLeader : matériel informatique sélectionné pour s
     <header class="hero" id="contenu">
         <!-- Image de la bannière placée dans un <div> -->
         <div class="hero__visual">
-            <img src="assets/banniere.png" alt="">
+            <img src="assets/banniere.webp" alt="" width="1584" height="396" fetchpriority="high">
         </div>
         <div class="hero__inner">
             <h1 class="hero__title">Bienvenue chez InfoLeader</h1>

@@ -7,6 +7,7 @@
 const SITE_LINKS = [
     'index.php' => 'Accueil',
     'products.php' => 'Nos Produits',
+    'faq.php' => 'FAQ',
     'contact.php' => 'Contact',
 ];
 
@@ -16,10 +17,12 @@ function site_base(): string
     return rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/') . '/';
 }
 
-function site_header(string $title, string $description = ''): void
+function site_header(string $title, string $description = '', bool $noindex = false): void
 {
     $current = basename($_SERVER['SCRIPT_NAME']);
     $base = site_base();
+    // Adresse absolue de la page (Open Graph exige des URL complètes)
+    $origin = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . ($_SERVER['HTTP_HOST'] ?? 'localhost');
     ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -30,6 +33,19 @@ function site_header(string $title, string $description = ''): void
     <?php if ($description !== ''): ?>
         <meta name="description" content="<?= e($description) ?>">
     <?php endif; ?>
+    <?php if ($noindex): ?>
+        <meta name="robots" content="noindex">
+    <?php endif; ?>
+    <!-- Open Graph : aperçu lors d'un partage sur les réseaux sociaux -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="InfoLeader">
+    <meta property="og:title" content="InfoLeader - <?= e($title) ?>">
+    <?php if ($description !== ''): ?>
+        <meta property="og:description" content="<?= e($description) ?>">
+    <?php endif; ?>
+    <meta property="og:url" content="<?= e($origin . $_SERVER['REQUEST_URI']) ?>">
+    <meta property="og:image" content="<?= e($origin . $base) ?>assets/banniere.webp">
     <link rel="stylesheet" href="<?= e($base) ?>style.css?v=<?= filemtime(ROOT . '/style.css') ?>">
 </head>
 <body>
@@ -90,7 +106,7 @@ function product_card(array $product, string $headingTag = 'h2'): string
     $price = e(format_price($product['price']));
     // Sans image : grande initiale sur fond teinté
     $image = $product['image']
-        ? '<img src="' . e($product['image']) . '" alt="" loading="lazy">'
+        ? '<img src="' . e($product['image']) . '" alt="Photo : ' . $name . '" loading="lazy" decoding="async">'
         : '<span class="product-card__placeholder" aria-hidden="true">' . e(mb_substr($product['name'], 0, 1)) . '</span>';
     return <<<HTML
 <article class="product-card" data-name="$name" data-description="$description">

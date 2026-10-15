@@ -93,7 +93,7 @@ site_header('Contact', 'Écrivez à InfoLeader : une question, un devis, un proj
         <?php if ($success): ?>
 
             <!-- Message de confirmation -->
-            <div class="alert alert--success">
+            <div class="alert alert--success" role="status">
                 Merci pour votre message — il a bien été reçu. Nous vous répondrons à <?= e($email) ?>.
             </div>
             <p><a href="products.php" class="cta">Voir nos produits</a></p>

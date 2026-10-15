@@ -12,7 +12,7 @@ require __DIR__ . '/../app/bootstrap.php';
 require __DIR__ . '/../app/mailer.php';
 require __DIR__ . '/../app/catalog.php';
 
-const BASE = 'http://127.0.0.1/infoleader/';
+const BASE = 'http://127.0.0.1/infoleader-tp2ter/';
 const TEST_PASSWORD = 'Test-Password-2026-Abcdef!';
 const NEW_PASSWORD = 'Nouveau-Mot2Passe-Tres-Long!';
 

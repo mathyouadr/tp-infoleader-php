@@ -601,6 +601,33 @@ img {
     padding: 2.5rem 1.5rem 4rem;
 }
 
+/* FAQ : accordéon natif <details> */
+.faq {
+    margin-bottom: 2rem;
+}
+
+.faq__item {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background-color: var(--white);
+    margin-bottom: 0.8rem;
+}
+
+.faq__item summary {
+    cursor: pointer;
+    padding: 1rem 1.2rem;
+    font-weight: 600;
+}
+
+.faq__item[open] summary {
+    border-bottom: 1px solid var(--line);
+    color: var(--blue);
+}
+
+.faq__item p {
+    padding: 1rem 1.2rem 0.4rem;
+}
+
 /* Page « Mentions légales et confidentialité » : texte long, lisible */
 .legal-wrap {
     max-width: 760px;

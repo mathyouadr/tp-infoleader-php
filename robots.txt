@@ -1,0 +1,4 @@
+# Robots : tout le site public, sauf l'administration
+User-agent: *
+Disallow: /infoleader-tp2ter/admin/
+Sitemap: http://localhost/infoleader-tp2ter/sitemap.xml

@@ -8,7 +8,7 @@ require __DIR__ . '/app/bootstrap.php';
 require ROOT . '/app/site.php';
 
 http_response_code(404);
-site_header('Page introuvable');
+site_header('Page introuvable', 'Cette adresse n\'existe pas sur le site InfoLeader.', true);
 ?>
 
     <header class="page-header">
