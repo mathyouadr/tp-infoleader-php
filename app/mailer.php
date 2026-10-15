@@ -46,7 +46,9 @@ function send_mail(string $to, string $subject, string $body, ?string $replyTo =
 {
     $c = mail_config();
     if (!mail_ready($c)) {
-        return 'La configuration e-mail est incomplète.';
+        $error = 'La configuration e-mail est incomplète.';
+        log_event('event', "Échec d'envoi d'e-mail à $to : $error");
+        return $error;
     }
 
     $mail = new PHPMailer(true);

@@ -1,7 +1,7 @@
 # Pas de listing des dossiers
 Options -Indexes
 
-# Fichiers internes jamais servis par Apache
-<FilesMatch "^(composer\.(json|lock)|.*\.md|\.gitignore)$">
+# Fichiers internes jamais servis par Apache (products.json : lu seulement par app/install.php)
+<FilesMatch "^(composer\.(json|lock)|products\.json|.*\.md|\.gitignore)$">
     Require all denied
 </FilesMatch>

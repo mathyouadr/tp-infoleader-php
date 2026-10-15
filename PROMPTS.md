@@ -135,6 +135,7 @@ Commence par la première tâche P0.
 | DATA-1 | Limite de `log_event()` portée de 2000 à 6000 caractères ; 1 vérification ajoutée | `php tests/http_test.php` → 95 réussis, 0 échec (message de 4000 caractères retrouvé en entier) |
 | CODE-1 | Partie PHP de `contact.php` réécrite dans le style du projet ; sauts de ligne bruts remplacés par `\n` | `file contact.php` sans « with CR » ; sujet et corps de l'e-mail comparés à l'ancienne version : identiques ; `php tests/http_test.php` → 95 réussis, 0 échec |
 | CODE-2 | Contrôle de MySQL (`SELECT 1`) et d'Apache (cURL) en tête de `tests/http_test.php`, message clair et code de sortie 1 | Panne simulée (Apache sur un port fermé) → message clair, code 1 ; WAMP démarré → 95 réussis, 0 échec, code 0 |
+| DATA-2 | `products.json` ajouté au `FilesMatch` du `.htaccess` ; tests 403 sur `products.json`, `composer.json`, `README.md`. Au passage : `send_mail()` journalise aussi l'échec « configuration incomplète » ; les tests désactivent l'envoi après la section Mailjet (fin d'un test instable) et ignorent, en le signalant, les 2 vérifications réseau si Mailjet ne répond pas | `php tests/http_test.php` → 96 réussis, 0 échec, 2 ignorées (Mailjet bloquait temporairement) |
 
 *(Compléter ce tableau à chaque nouvelle tâche validée.)*
 

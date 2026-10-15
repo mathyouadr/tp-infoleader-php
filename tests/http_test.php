@@ -34,6 +34,7 @@ if (!$up) {
 $jar = tempnam(sys_get_temp_dir(), 'il');
 $passed = 0;
 $failed = 0;
+$skipped = 0; // vérifications ignorées faute de réseau (jamais comptées comme réussies)
 
 function check(bool $ok, string $label): void
 {
@@ -74,6 +75,17 @@ function csrf(string $path): string
     [, $body] = http($path);
     preg_match('/name="csrf" value="([a-f0-9]+)"/', $body, $m);
     return $m[1] ?? '';
+}
+
+/** Le serveur SMTP de Mailjet répond-il ? (il peut bloquer un moment après des essais répétés) */
+function mailjet_up(): bool
+{
+    $socket = @fsockopen('in-v3.mailjet.com', 587, $errno, $errstr, 5);
+    if (!$socket) {
+        return false;
+    }
+    stream_set_timeout($socket, 5);
+    return str_starts_with((string) fgets($socket), '220');
 }
 
 function clear_throttle(): void
@@ -211,12 +223,20 @@ try {
     [$code] = http('admin/email.php', ['csrf' => csrf('admin/email.php'), 'action' => 'test'] + $mailForm);
     [, $body] = http('admin/email.php');
     check($code === 302 && str_contains($body, 'Configuration enregistrée'), 'Configuration enregistrée');
-    check(str_contains($body, 'Échec de l\'envoi') && str_contains($body, 'authenticate'), 'Test réel : Mailjet joint en STARTTLS, faux identifiants refusés');
+    $mailjetUp = mailjet_up();
+    if ($mailjetUp) {
+        check(str_contains($body, 'Échec de l\'envoi') && str_contains($body, 'authenticate'), 'Test réel : Mailjet joint en STARTTLS, faux identifiants refusés');
+    }
     check(!str_contains($body, $fakeSecret), 'Clé SMTP jamais réaffichée');
     $stored = db()->query("SELECT value FROM settings WHERE name = 'mail'")->fetchColumn();
     check(!str_contains($stored, $fakeSecret) && decrypt_secret(json_decode($stored, true)['smtp_pass']) === $fakeSecret, 'Clé SMTP chiffrée en base (et déchiffrable)');
     $debugLog = (string) @file_get_contents(MAIL_DEBUG_LOG);
-    check(str_contains($debugLog, 'STARTTLS') && str_contains($debugLog, '[masqué]'), 'Log de débogage écrit, AUTH masqué');
+    if ($mailjetUp) {
+        check(str_contains($debugLog, 'STARTTLS') && str_contains($debugLog, '[masqué]'), 'Log de débogage écrit, AUTH masqué');
+    } else {
+        $skipped += 2;
+        echo "  IGNORÉ Mailjet ne répond pas (réseau ou blocage temporaire) : 2 vérifications SMTP non faites\n";
+    }
     check(!str_contains($debugLog, base64_encode($fakeSecret)) && !str_contains($debugLog, base64_encode('0123456789abcdef0123456789abcdef')), 'Aucun identifiant (même en base64) dans le log');
     $logs = db()->query('SELECT GROUP_CONCAT(message) FROM logs WHERE created_at >= NOW() - INTERVAL 5 MINUTE')->fetchColumn();
     check(!str_contains((string) $logs, $fakeSecret), 'Clé SMTP absente des journaux');
@@ -224,6 +244,8 @@ try {
     [, $body] = http('admin/email.php', ['csrf' => csrf('admin/email.php'), 'action' => 'save', 'smtp_pass' => ''] + $mailForm);
     $stored2 = json_decode(db()->query("SELECT value FROM settings WHERE name = 'mail'")->fetchColumn(), true);
     check(decrypt_secret($stored2['smtp_pass']) === $fakeSecret, 'Champ vide : clé existante conservée');
+    // Envoi de nouveau désactivé : la suite ne dépend plus du réseau ni de la lenteur de Mailjet
+    set_setting('mail', ['from_email' => ''] + mail_config());
 
     echo "\n== 3. Modules Mot de passe & Utilisateur ==\n";
 
@@ -274,6 +296,12 @@ try {
     foreach (['index.php', 'products.php', 'contact.php', 'admin/login.php'] as $page) {
         [, , , $headers] = http($page);
         check(str_contains($headers, "Content-Security-Policy: default-src 'self'"), "CSP envoyée sur $page");
+    }
+
+    // Fichiers internes refusés par Apache (DATA-2 pour products.json)
+    foreach (['products.json', 'composer.json', 'README.md'] as $file) {
+        [$code] = http($file);
+        check($code === 403, "Accès web refusé : $file (403)");
     }
 
     // Page « Mentions légales et confidentialité » (TODO_LIST.md, RGPD-2)
@@ -417,5 +445,5 @@ try {
     @unlink($jar);
 }
 
-echo "\nRésultat : $passed réussi(s), $failed échec(s)\n";
+echo "\nRésultat : $passed réussi(s), $failed échec(s)" . ($skipped ? ", $skipped ignorée(s)" : '') . "\n";
 exit($failed > 0 ? 1 : 0);
