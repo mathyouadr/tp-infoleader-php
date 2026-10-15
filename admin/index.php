@@ -1,6 +1,6 @@
 <?php
 /* ============================================================
-   Tableau de bord : compte connecté + accès aux 4 modules
+   Tableau de bord : compte connecté + accès aux modules
    ============================================================ */
 
 require __DIR__ . '/../app/bootstrap.php';
