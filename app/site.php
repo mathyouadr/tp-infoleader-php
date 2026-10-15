@@ -10,9 +10,16 @@ const SITE_LINKS = [
     'contact.php' => 'Contact',
 ];
 
+/** Dossier du site dans l'URL (ex. /infoleader/) : liens valables même depuis la page 404 */
+function site_base(): string
+{
+    return rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/') . '/';
+}
+
 function site_header(string $title, string $description = ''): void
 {
     $current = basename($_SERVER['SCRIPT_NAME']);
+    $base = site_base();
     ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -23,7 +30,7 @@ function site_header(string $title, string $description = ''): void
     <?php if ($description !== ''): ?>
         <meta name="description" content="<?= e($description) ?>">
     <?php endif; ?>
-    <link rel="stylesheet" href="style.css?v=<?= filemtime(ROOT . '/style.css') ?>">
+    <link rel="stylesheet" href="<?= e($base) ?>style.css?v=<?= filemtime(ROOT . '/style.css') ?>">
 </head>
 <body>
     <!-- Lien d'évitement : visible au clavier, saute le menu -->
@@ -31,7 +38,7 @@ function site_header(string $title, string $description = ''): void
 
     <!-- ====== Barre de navigation ====== -->
     <nav class="navbar">
-        <a href="index.php" class="navbar__brand">Info<span>Leader</span></a>
+        <a href="<?= e($base) ?>index.php" class="navbar__brand">Info<span>Leader</span></a>
         <!-- Bouton hamburger (visible sur mobile) -->
         <button id="menu-toggle" class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
             <span></span>
@@ -40,7 +47,7 @@ function site_header(string $title, string $description = ''): void
         </button>
         <ul class="navbar__links">
             <?php foreach (SITE_LINKS as $href => $label): ?>
-                <li><a href="<?= $href ?>"<?= $href === $current ? ' class="is-active" aria-current="page"' : '' ?>><?= e($label) ?></a></li>
+                <li><a href="<?= e($base . $href) ?>"<?= $href === $current ? ' class="is-active" aria-current="page"' : '' ?>><?= e($label) ?></a></li>
             <?php endforeach; ?>
         </ul>
     </nav>
@@ -49,6 +56,7 @@ function site_header(string $title, string $description = ''): void
 
 function site_footer(): void
 {
+    $base = site_base();
     ?>
     <!-- ====== Pied de page ====== -->
     <footer class="footer">
@@ -59,16 +67,16 @@ function site_footer(): void
             </div>
             <ul class="footer__links">
                 <?php foreach (SITE_LINKS as $href => $label): ?>
-                    <li><a href="<?= $href ?>"><?= e($label) ?></a></li>
+                    <li><a href="<?= e($base . $href) ?>"><?= e($label) ?></a></li>
                 <?php endforeach; ?>
-                <li><a href="mentions-legales.php">Mentions légales</a></li>
-                <li><a href="admin/">Administration</a></li>
+                <li><a href="<?= e($base) ?>mentions-legales.php">Mentions légales</a></li>
+                <li><a href="<?= e($base) ?>admin/">Administration</a></li>
             </ul>
         </div>
         <p class="footer__legal">&copy; <?= date('Y') ?> InfoLeader — Tous droits réservés.</p>
     </footer>
 
-    <script src="script.js?v=<?= filemtime(ROOT . '/script.js') ?>"></script>
+    <script src="<?= e($base) ?>script.js?v=<?= filemtime(ROOT . '/script.js') ?>"></script>
 </body>
 </html>
 <?php

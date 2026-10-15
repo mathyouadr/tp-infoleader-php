@@ -1,6 +1,9 @@
 # Pas de listing des dossiers
 Options -Indexes
 
+# Page « introuvable » aux couleurs du site (chemin à adapter si le dossier change)
+ErrorDocument 404 /infoleader/404.php
+
 # Fichiers internes jamais servis par Apache (products.json : lu seulement par app/install.php)
 <FilesMatch "^(composer\.(json|lock)|products\.json|.*\.md|\.gitignore)$">
     Require all denied

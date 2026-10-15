@@ -144,6 +144,7 @@ Commence par la première tâche P0.
 | SEC-4 | Hachage bcrypt factice dans `admin/login.php` : `password_verify()` est toujours appelé | Syntaxe PHP vérifiée (tests sautés à la demande de l'étudiant) |
 | SEC-5 | Empreinte du hachage en session (`password_fingerprint()`), contrôlée par `current_admin()` ; mise à jour pour la session qui change le mot de passe | Syntaxe PHP vérifiée (tests sautés à la demande de l'étudiant) |
 | SEC-6 | Transaction + `INSERT IGNORE` + `SELECT … FOR UPDATE` dans `throttle_fail()` ; commentaire `ponytail:` retiré | Syntaxe PHP vérifiée (tests sautés à la demande de l'étudiant) |
+| FRONT-4 | `404.php` + `ErrorDocument 404` dans `.htaccess` ; `site_base()` rend les liens du gabarit public valables depuis n'importe quelle URL | `page-inexistante` et `admin/x/y` → 404 avec le style chargé ; pages existantes → 200 (tests sautés à la demande) |
 
 *(Compléter ce tableau à chaque nouvelle tâche validée.)*
 
